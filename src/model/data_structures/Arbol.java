@@ -1,8 +1,7 @@
 package model.data_structures;
  
 /**
- * Permite crear la interfaz con las operaciones basicas que debe realizar un arbol
- * @author Geovanny González
+ * Permite crear la interfaz con las operaciones basicas que debe realizar un arbol 
  * @param <Key> Es la clase asociada para ser la clave en la estructura de datos
  * @param <Value> Es la clave asociada para ser el valor de la tupla clave-valor
  */

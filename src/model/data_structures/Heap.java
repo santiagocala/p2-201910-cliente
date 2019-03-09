@@ -2,7 +2,6 @@ package model.data_structures;
 
 /**
  * Permite implementar una cola de prioridad sobre un binary heap.
- * @author Geovanny Gonzalez.
  */
 
 public interface Heap <T> {
