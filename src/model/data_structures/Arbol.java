@@ -32,7 +32,7 @@ public interface Arbol <Key extends Comparable<? super Key>, Value> extends Iter
 	public boolean contains(Key pClave);
 	
 	/**
-	 * Permite devolver el valor de una clave que existe en el arbol
+	 * Permite devolver el valor de una clave en el arbol
 	 * @param pClave Es la clave que sobre la cual se desea obtener su valor.
 	 * @return El valor asociado a la clave, null si no existe
 	 */

@@ -7,7 +7,7 @@ package model.data_structures;
 public interface Heap <T> {
 
 	/**
-	 * Permite agregar un nuevo elemento al monticulo
+	 * Permite agregar un nuevo elemento al heap
 	 */
 	
 	public void add (T elemento);
@@ -17,6 +17,11 @@ public interface Heap <T> {
 	 */
 	
 	public T get();
+	
+	/**
+	 * Devuelve el numero de elementos que posee el heap
+	 * @return Numero de elementos del heap.
+	 */
 	
 	public int size();
 }
