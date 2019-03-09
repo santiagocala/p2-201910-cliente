@@ -12,9 +12,9 @@ public class InfraccionesLocalizacion extends Infracciones {
 	
 	private double ycoord;
 	
-	private double adressID;
+	private String adressID;
 	
-	private double streetID;
+	private String streetID;
 	
 	
 	/**
@@ -72,7 +72,7 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @return the adressID
 	 */
-	public double getAdressID() {
+	public String getAdressID() {
 		return adressID;
 	}
 
@@ -82,7 +82,7 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @param adressID the adressID to set
 	 */
-	public void setAdressID(double adressID) {
+	public void setAdressID(String adressID) {
 		this.adressID = adressID;
 	}
 
@@ -92,7 +92,7 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @return the streetID
 	 */
-	public double getStreetID() {
+	public String getStreetID() {
 		return streetID;
 	}
 
@@ -102,7 +102,7 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @param streetID the streetID to set
 	 */
-	public void setStreetID(double streetID) {
+	public void setStreetID(String streetID) {
 		this.streetID = streetID;
 	}
 }
