@@ -4,10 +4,10 @@ import model.data_structures.IQueue;
 
 /**
  * Agrupa las infracciones mostrando estadísticas sobre los datos 
- * como el total de infracciones que se presentan en esa franja horaria,
+ * como el total de infracciones que se presentan en ese conjunto,
  * el porcentaje de infracciones con y sin accidentes con respecto al total,
  * el valor total de las infracciones que se deben pagar y una lista con 
- * las infracciones que cumplen esta franja horaria. 
+ * las infracciones. 
  */
 
 public class Infracciones {
