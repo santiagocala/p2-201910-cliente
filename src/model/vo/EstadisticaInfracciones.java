@@ -10,7 +10,7 @@ import model.data_structures.IQueue;
  * las infracciones. 
  */
 
-public class Infracciones {
+public class EstadisticaInfracciones {
 	
 	/**	
 	 * Numero total de infraciones del conjunto
@@ -34,7 +34,7 @@ public class Infracciones {
 	 * Valor total de las infracciones que se debe pagar.
 	 */
 	
-	protected int valorTotal;	
+	protected double valorTotal;	
 	
 	/**
 	 * Lista con las infracciones que agrupa el conjunto
@@ -48,12 +48,14 @@ public class Infracciones {
 	 * @param listaInfracciones - Lista con las infracciones que cumplen el criterio de agrupamiento
 	 */
 	
-	public Infracciones(IQueue<VOMovingViolations> lista) {
+	public EstadisticaInfracciones(IQueue<VOMovingViolations> lista) {
 		this.listaInfracciones = lista;
 		totalInfracciones = listaInfracciones.size();
-		porcentajeAccidentes = 0.0;
-		porcentajeNoAccidentes = 0.0;
-		valorTotal = 0;
+		
+		//TODO Hacer el calculo de porcentajeAccidentes, porcentajeNoAccidentes y valorTotal
+		porcentajeAccidentes = -50.0;   //TODO Calcular con base en la lista
+		porcentajeNoAccidentes = -50.0; //TODO Calcular con base en la lista
+		valorTotal = -100000.0;         //TODO Calcular con base en la lista
 	}
 	
 	//=========================================================
@@ -70,7 +72,6 @@ public class Infracciones {
 	}	
 	
 	
-
 	/**
 	 * Gets the porcentaje accidentes.	 *
 	 * @return the porcentaje accidentes
@@ -99,7 +100,7 @@ public class Infracciones {
 	 *
 	 * @return the valor total
 	 */
-	public int getValorTotal() {
+	public double getValorTotal() {
 		//TODO Completar para calcular el valor total de dinero que representan las infracciones
 		return valorTotal;
 	}	

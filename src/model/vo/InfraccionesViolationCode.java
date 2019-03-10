@@ -7,7 +7,7 @@ import model.data_structures.IQueue;
  * de las respectivas infracciones que poseen el código en mención.
  */
 
-public class InfraccionesViolationCode extends Infracciones{
+public class InfraccionesViolationCode extends EstadisticaInfracciones{
 	
 	/**
 	 * Codigo de la infracción por las que se van a agrupar las infracciones
@@ -20,9 +20,9 @@ public class InfraccionesViolationCode extends Infracciones{
 	 * @param lista Lista de infracciones que poseen el mismo ViolationCode
 	 */
 	
-	public InfraccionesViolationCode(String violationCode, IQueue<VOMovingViolations> lista) {
+	public InfraccionesViolationCode(String violationCodeP, IQueue<VOMovingViolations> lista) {
 		super(lista);
-		this.violationCode = violationCode;
+		this.violationCode = violationCodeP;
 	}
 
 	/**

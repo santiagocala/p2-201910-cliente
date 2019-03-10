@@ -1,8 +1,8 @@
 package model.vo;
 
-//TODO Reemplazar con la definicion de VOMovingViolations del proyecto anterior o la utilizada
-//en talleres anteriores.
+//TODO Reemplazar con la definicion de VOMovingViolations del proyecto anterior o la utilizada en talleres anteriores.
 
 public class VOMovingViolations {
 
+	// TODO completar la definicion de una infraccion completa
 }

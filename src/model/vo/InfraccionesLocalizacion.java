@@ -3,18 +3,20 @@ package model.vo;
 import model.data_structures.IQueue;
 
 /**  
- * Agrupa las infracciones por location 
+ * Agrupa las infracciones por (Xcoord, Ycoord) 
  */
 
-public class InfraccionesLocalizacion extends Infracciones {
+public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 
 	private double xcoord;
 	
 	private double ycoord;
 	
-	private String adressID;
+	private String location;
 	
-	private String streetID;
+	private int addressID;
+	
+	private int streetID;
 	
 	
 	/**
@@ -22,8 +24,14 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 * @param lista the lista
 	 */
 	
-	public InfraccionesLocalizacion(IQueue<VOMovingViolations> lista) {
+	public InfraccionesLocalizacion(double xcoor, double ycoor, String locat, int address, int street, IQueue<VOMovingViolations> lista) {
 		super(lista);
+		xcoord = xcoor;
+		ycoord = ycoor;
+		location = locat;
+		addressID = address;
+		streetID = street;
+
 	}
 
 
@@ -72,8 +80,8 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @return the adressID
 	 */
-	public String getAdressID() {
-		return adressID;
+	public int getAdressID() {
+		return addressID;
 	}
 
 
@@ -82,8 +90,8 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @param adressID the adressID to set
 	 */
-	public void setAdressID(String adressID) {
-		this.adressID = adressID;
+	public void setAdressID(int adressID) {
+		this.addressID = adressID;
 	}
 
 
@@ -92,7 +100,7 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @return the streetID
 	 */
-	public String getStreetID() {
+	public int getStreetID() {
 		return streetID;
 	}
 
@@ -102,7 +110,17 @@ public class InfraccionesLocalizacion extends Infracciones {
 	 *
 	 * @param streetID the streetID to set
 	 */
-	public void setStreetID(String streetID) {
-		this.streetID = streetID;
+	public void setStreetID(int pStreetID) {
+		this.streetID = pStreetID;
 	}
+	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
 }
