@@ -6,6 +6,14 @@ import model.data_structures.IQueue;
 
 public class InfraccionesFechaHora extends EstadisticaInfracciones {
 
+	@Override
+	public String toString() {
+		return "InfraccionesFechaHora [fecha_hora_inicial=" + fecha_hora_inicial + ", fecha_hora_final="
+				+ fecha_hora_final + ", totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes="
+				+ porcentajeAccidentes + ", porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal="
+				+ valorTotal + "]";
+	}
+
 	private LocalDateTime fecha_hora_inicial;
 	
 	private LocalDateTime fecha_hora_final;

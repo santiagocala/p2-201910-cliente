@@ -10,6 +10,13 @@ import model.data_structures.IQueue;
 
 public class InfraccionesFranjaHorariaViolationCode extends InfraccionesFranjaHoraria {
 	
+	@Override
+	public String toString() {
+		return "InfraccionesFranjaHorariaViolationCode [infViolationCode=" + infViolationCode + ", totalInfracciones="
+				+ totalInfracciones + ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+	}
+
 	/**
 	 * Agrupa las infracciones del rango de hora por ViolationCode y muestra sus estadisticas
 	 */

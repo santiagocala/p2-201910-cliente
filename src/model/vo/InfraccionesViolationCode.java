@@ -9,6 +9,13 @@ import model.data_structures.IQueue;
 
 public class InfraccionesViolationCode extends EstadisticaInfracciones{
 	
+	@Override
+	public String toString() {
+		return "InfraccionesViolationCode [violationCode=" + violationCode + ", totalInfracciones=" + totalInfracciones
+				+ ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+	}
+
 	/**
 	 * Codigo de la infracción por las que se van a agrupar las infracciones
 	 */

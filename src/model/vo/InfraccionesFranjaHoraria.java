@@ -11,6 +11,13 @@ import model.data_structures.IQueue;
 
 public class InfraccionesFranjaHoraria extends EstadisticaInfracciones {	
 
+	@Override
+	public String toString() {
+		return "InfraccionesFranjaHoraria [hora_Inicial=" + hora_Inicial + ", hora_Final=" + hora_Final
+				+ ", totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes=" + porcentajeAccidentes
+				+ ", porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+	}
+
 	/** The franja horaria inicial. */
 	
 	private LocalTime hora_Inicial;
@@ -43,4 +50,5 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones {
 	public LocalTime getFranjaFinal() {
 		return hora_Final;
 	}
+	
 }

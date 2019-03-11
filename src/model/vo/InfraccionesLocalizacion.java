@@ -6,7 +6,15 @@ import model.data_structures.IQueue;
  * Agrupa las infracciones por (Xcoord, Ycoord) 
  */
 
-public class InfraccionesLocalizacion extends EstadisticaInfracciones {
+public class InfraccionesLocalizacion extends EstadisticaInfracciones {	
+
+	@Override
+	public String toString() {
+		return "InfraccionesLocalizacion [xcoord=" + xcoord + ", ycoord=" + ycoord + ", location=" + location
+				+ ", addressID=" + addressID + ", streetID=" + streetID + ", totalInfracciones=" + totalInfracciones
+				+ ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+	}
 
 	private double xcoord;
 	

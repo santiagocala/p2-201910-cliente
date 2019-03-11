@@ -12,6 +12,13 @@ import model.data_structures.IQueue;
 
 public class EstadisticaInfracciones {
 	
+	@Override
+	public String toString() {
+		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes="
+				+ porcentajeAccidentes + ", porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal="
+				+ valorTotal + "]";
+	}
+
 	/**	
 	 * Numero total de infraciones del conjunto
 	 */
