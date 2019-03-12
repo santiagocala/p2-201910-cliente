@@ -1,6 +1,5 @@
 package view;
 
-import controller.Contenedora;
 import model.data_structures.IQueue;
 import model.vo.*;
 
