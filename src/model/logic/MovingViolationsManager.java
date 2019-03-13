@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import model.data_structures.IQueue;
+import model.vo.EstadisticaInfracciones;
 import model.vo.EstadisticasCargaInfracciones;
 import model.vo.InfraccionesFecha;
 import model.vo.InfraccionesFechaHora;

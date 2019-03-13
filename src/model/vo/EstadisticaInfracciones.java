@@ -14,9 +14,9 @@ public class EstadisticaInfracciones {
 	
 	@Override
 	public String toString() {
-		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes="
-				+ porcentajeAccidentes + ", porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal="
-				+ valorTotal + "]";
+		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
+				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
+				+ valorTotal + "]\n\n";
 	}
 
 	/**	

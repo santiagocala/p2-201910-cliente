@@ -12,9 +12,9 @@ public class InfraccionesFranjaHorariaViolationCode extends InfraccionesFranjaHo
 	
 	@Override
 	public String toString() {
-		return "InfraccionesFranjaHorariaViolationCode [infViolationCode=" + infViolationCode + ", totalInfracciones="
-				+ totalInfracciones + ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
-				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+		return "InfraccionesFranjaHorariaViolationCode [totalInfracciones="
+				+ totalInfracciones + ",\n porcentajeAccidentes=" + porcentajeAccidentes + ",\n porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ",\n valorTotal=" + valorTotal + "]\n";
 	}
 
 	/**

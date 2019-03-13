@@ -10,10 +10,10 @@ public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 
 	@Override
 	public String toString() {
-		return "InfraccionesLocalizacion [xcoord=" + xcoord + ", ycoord=" + ycoord + ", location=" + location
-				+ ", addressID=" + addressID + ", streetID=" + streetID + ", totalInfracciones=" + totalInfracciones
-				+ ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
-				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+		return "InfraccionesLocalizacion [xcoord=" + xcoord + ", ycoord=" + ycoord + ",\n location=" + location
+				+ ", addressID=" + addressID + ",\n streetID=" + streetID + ", totalInfracciones=" + totalInfracciones
+				+ ",\n porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]\n\n";
 	}
 
 	private double xcoord;

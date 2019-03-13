@@ -11,9 +11,9 @@ public class InfraccionesViolationCode extends EstadisticaInfracciones{
 	
 	@Override
 	public String toString() {
-		return "InfraccionesViolationCode [violationCode=" + violationCode + ", totalInfracciones=" + totalInfracciones
-				+ ", porcentajeAccidentes=" + porcentajeAccidentes + ", porcentajeNoAccidentes="
-				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]";
+		return "InfraccionesViolationCode [violationCode=" + violationCode + ",\n totalInfracciones=" + totalInfracciones
+				+ ", porcentajeAccidentes=" + porcentajeAccidentes + ",\n porcentajeNoAccidentes="
+				+ porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]\n\n";
 	}
 
 	/**
