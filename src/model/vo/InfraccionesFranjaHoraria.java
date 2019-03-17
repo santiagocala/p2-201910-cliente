@@ -13,9 +13,9 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones {
 
 	@Override
 	public String toString() {
-		return "InfraccionesFranjaHoraria [hora_Inicial=" + hora_Inicial + ", hora_Final=" + hora_Final
-				+ ",\n totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes=" + porcentajeAccidentes
-				+ ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal=" + valorTotal + "]\n\n";
+		return "InfraccionesFranjaHoraria [hora_Inicial=" + hora_Inicial + ",\n hora_Final=" + hora_Final
+				+ ",\n totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes=" + porcentajeAccidentes
+				+ ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal=" + valorTotal + "]\n\n";
 	}
 
 	/** The franja horaria inicial. */

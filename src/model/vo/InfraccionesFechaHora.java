@@ -8,9 +8,9 @@ public class InfraccionesFechaHora extends EstadisticaInfracciones {
 
 	@Override
 	public String toString() {
-		return "InfraccionesFechaHora [fecha_hora_inicial=" + fecha_hora_inicial + ", fecha_hora_final="
-				+ fecha_hora_final + ",\n totalInfracciones=" + totalInfracciones + ", porcentajeAccidentes="
-				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ", valorTotal="
+		return "InfraccionesFechaHora [fecha_hora_inicial=" + fecha_hora_inicial + ",\n fecha_hora_final="
+				+ fecha_hora_final + ",\n totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
+				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
 				+ valorTotal + "]\n\n";
 	}
 

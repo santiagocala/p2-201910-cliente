@@ -70,9 +70,9 @@ public class Controller {
 				break;
 
 			case 2:
-				view.printMessage("Ingrese la coordenada en X de la localizacion geografica: ");
+				view.printMessage("Ingrese la coordenada en X de la localizacion geografica (Ej. 1234,56): ");
 				double xcoord = sc.nextDouble();
-				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica: ");
+				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
 				double ycoord = sc.nextDouble();
 
 				//TODO Completar para la invocación del metodo 2A
@@ -84,11 +84,11 @@ public class Controller {
 
 			case 3:
 				view.printMessage("Ingrese la fecha inicial del rango. Formato año-mes-dia (ej. 2008-06-21)");
-				String fechaInicialStr = sc.nextLine();
+				String fechaInicialStr = sc.next();
 				LocalDate fechaInicial = ManejoFechaHora.convertirFecha_LD( fechaInicialStr );
 
 				view.printMessage("Ingrese la fecha final del rango. Formato año-mes-dia (ej. 2008-06-30)");
-				String fechaFinalStr = sc.nextLine();
+				String fechaFinalStr = sc.next();
 				LocalDate fechaFinal = ManejoFechaHora.convertirFecha_LD( fechaFinalStr );
 
 				//TODO Completar para la invocacion del metodo 3A
@@ -111,9 +111,9 @@ public class Controller {
 				break;
 
 			case 5:						
-				view.printMessage("Ingrese la coordenada en X de la localizacion geografica: ");
+				view.printMessage("Ingrese la coordenada en X de la localizacion geografica (Ej. 1234,56): ");
 				xcoord = sc.nextDouble();
-				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica: ");
+				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
 				ycoord = sc.nextDouble();
 
 				//TODO Completar para la invocación del metodo 2B
@@ -124,10 +124,10 @@ public class Controller {
 				break;
 
 			case 6:
-				view.printMessage("Ingrese la cantidad minima de dinero que deben acumular las infracciones en sus rangos de fecha");
+				view.printMessage("Ingrese la cantidad minima de dinero que deben acumular las infracciones en sus rangos de fecha  (Ej. 1234,56)");
 				double cantidadMinima = sc.nextDouble();
 
-				view.printMessage("Ingrese la cantidad maxima de dinero que deben acumular las infracciones en sus rangos de fecha");
+				view.printMessage("Ingrese la cantidad maxima de dinero que deben acumular las infracciones en sus rangos de fecha (Ej. 5678,23)");
 				double cantidadMaxima = sc.nextDouble();
 
 				//TODO Completar para la invocación del metodo 3B
@@ -156,11 +156,11 @@ public class Controller {
 
 			case 8:
 				view.printMessage("Ingrese la hora inicial del rango. Formato HH:MM:SS (ej. 09:30:00)");
-				String horaInicialStr = sc.nextLine();
+				String horaInicialStr = sc.next();
 				LocalTime horaInicial = ManejoFechaHora.convertirHora_LT(horaInicialStr);
 
 				view.printMessage("Ingrese la hora final del rango. Formato HH:MM:SS (ej. 16:00:00)");
-				String horaFinalStr = sc.nextLine();
+				String horaFinalStr = sc.next();
 				LocalTime horaFinal = ManejoFechaHora.convertirHora_LT(horaFinalStr);
 
 				startTime = System.currentTimeMillis();

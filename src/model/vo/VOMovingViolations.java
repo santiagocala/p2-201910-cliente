@@ -9,8 +9,8 @@ public class VOMovingViolations {
 	@Override
 	public String toString() {
 		return "VOMovingViolations [objectId()=" + objectId() + ",\n getLocation()=" + getLocation()
-				+ ", getTicketIssueDate()=" + getTicketIssueDate() + ",\n getTotalPaid()=" + getTotalPaid()
-				+ ", getAccidentIndicator()=" + getAccidentIndicator() + ",\n getViolationDescription()="
+				+ ",\n getTicketIssueDate()=" + getTicketIssueDate() + ",\n getTotalPaid()=" + getTotalPaid()
+				+ ",\n getAccidentIndicator()=" + getAccidentIndicator() + ",\n getViolationDescription()="
 				+ getViolationDescription() + ",\n getStreetSegId()=" + getStreetSegId() + ",\n getAddressId()="
 				+ getAddressId() + "]\n\n";
 	}

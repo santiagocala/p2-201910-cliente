@@ -27,7 +27,6 @@ public class InfraccionesFranjaHorariaViolationCode extends InfraccionesFranjaHo
 	 * Instantiates a new object.
 	 *
 	 */
-	
 	public InfraccionesFranjaHorariaViolationCode(LocalTime hInicial, LocalTime hFinal, IQueue<VOMovingViolations> lista, IQueue<InfraccionesViolationCode> pInfViolationCode) {		
 		super(hInicial, hFinal, lista);
 		this.infViolationCode = pInfViolationCode;

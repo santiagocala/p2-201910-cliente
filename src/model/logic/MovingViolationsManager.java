@@ -150,11 +150,13 @@ public class MovingViolationsManager {
 	
 	/**
 	  * Requerimiento 4C: Obtener la  información  de  los códigos (ViolationCode) ordenados por su numero de infracciones.
-	  * @return Contenedora de objetos InfraccionesViolationCode
+	  * @return Contenedora de objetos InfraccionesViolationCode.
+	  // TODO Definir la estructura Contenedora
 	  */
 	public Contenedora<InfraccionesViolationCode> ordenarCodigosPorNumeroInfracciones()
 	{
 		// TODO completar
+		// TODO Definir la Estructura Contenedora
 		return null;		
 	}
 

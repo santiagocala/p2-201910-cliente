@@ -133,17 +133,19 @@ public class MovingViolationsManagerView {
 		System.out.println(resultado.toString());
 		
 		
-		/* Detalle de las infracciones (Se requiere SOLO en caso de validacion)*/
-		/*		
-		
 		for(InfraccionesViolationCode v: resultado.getInfViolationCode()) {
 			System.out.println(v.toString());
-			for(VOMovingViolations vv: resultado.getInfViolationCode().dequeue().getListaInfracciones()) {
+
+			/* Detalle de las infracciones (Se requiere SOLO en caso de validacion)*/
+			/*
+			for(VOMovingViolations vv: v.getListaInfracciones()) {
 				System.out.println(vv.toString());
-				
 			}
+			*/
 		}
-		
+
+		/* Detalle de las infracciones (Se requiere SOLO en caso de validacion)*/
+		/*
 		for(VOMovingViolations v: resultado.getListaInfracciones()) {
 			System.out.println(v.toString());
 		}
@@ -165,6 +167,7 @@ public class MovingViolationsManagerView {
 	
 	
 	public void printReq4C(Contenedora<InfraccionesViolationCode> resultados) {
+		//TODO La estructura Contenedora depende del metodo que retorna el resultado
 		//TODO Imprimir grafica ASCII con los codigos ordenados (de mayor a menor) por el total de sus infracciones 
 	}
 	
