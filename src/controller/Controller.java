@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,6 +14,7 @@ import model.logic.ManejoFechaHora;
 import model.logic.MovingViolationsManager;
 import view.MovingViolationsManagerView;
 
+
 public class Controller {
 
 	// Componente vista (consola)
@@ -18,6 +22,8 @@ public class Controller {
 	
 	// Componente modelo (logica de la aplicacion)
 	private MovingViolationsManager model;
+	
+	private RedBlackBST<Integer, VOMovingViolations> arbolBalanceado;
 
 	/**
 	 * Metodo constructor
@@ -26,6 +32,7 @@ public class Controller {
 	{
 		view = new MovingViolationsManagerView();
 		model = new MovingViolationsManager();
+		arbolBalanceado = new RedBlackBST<Integer, VOMovingViolations>();
 	}
 	
 	/**
@@ -62,7 +69,7 @@ public class Controller {
 				view.printMessage("1A. Consultar las N franjas horarias con mas infracciones que desea ver. Ingresar valor de N: ");
 				int numeroFranjas = sc.nextInt();
 
-				//TODO Completar para la invocación del metodo 1A
+				//TODO Completar para la invocaciï¿½n del metodo 1A
 				//model.rankingNFranjas(int N)
 				
 				//TODO Mostrar resultado de tipo Cola con N InfraccionesFranjaHoraria
@@ -75,7 +82,7 @@ public class Controller {
 				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
 				double ycoord = sc.nextDouble();
 
-				//TODO Completar para la invocación del metodo 2A
+				//TODO Completar para la invocaciï¿½n del metodo 2A
 				//model.consultarPorLocalizacionHash(double xCoord, double yCoord)
 
 				//TODO Mostrar resultado de tipo InfraccionesLocalizacion 
@@ -83,11 +90,11 @@ public class Controller {
 				break;
 
 			case 3:
-				view.printMessage("Ingrese la fecha inicial del rango. Formato año-mes-dia (ej. 2008-06-21)");
+				view.printMessage("Ingrese la fecha inicial del rango. Formato aï¿½o-mes-dia (ej. 2008-06-21)");
 				String fechaInicialStr = sc.next();
 				LocalDate fechaInicial = ManejoFechaHora.convertirFecha_LD( fechaInicialStr );
 
-				view.printMessage("Ingrese la fecha final del rango. Formato año-mes-dia (ej. 2008-06-30)");
+				view.printMessage("Ingrese la fecha final del rango. Formato aï¿½o-mes-dia (ej. 2008-06-30)");
 				String fechaFinalStr = sc.next();
 				LocalDate fechaFinal = ManejoFechaHora.convertirFecha_LD( fechaFinalStr );
 
@@ -103,7 +110,7 @@ public class Controller {
 				view.printMessage("1B. Consultar los N Tipos con mas infracciones. Ingrese el valor de N: ");
 				int numeroTipos = sc.nextInt();
 
-				//TODO Completar para la invocación del metodo 1B				
+				//TODO Completar para la invocaciï¿½n del metodo 1B				
 				//model.rankingNViolationCodes(int N)
 				
 				//TODO Mostrar resultado de tipo Cola con N InfraccionesViolationCode
@@ -116,7 +123,7 @@ public class Controller {
 				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
 				ycoord = sc.nextDouble();
 
-				//TODO Completar para la invocación del metodo 2B
+				//TODO Completar para la invocaciï¿½n del metodo 2B
 				//model.consultarPorLocalizacionArbol(double xCoord, double yCoord)
 
 				//TODO Mostrar resultado de tipo InfraccionesLocalizacion 
@@ -130,7 +137,7 @@ public class Controller {
 				view.printMessage("Ingrese la cantidad maxima de dinero que deben acumular las infracciones en sus rangos de fecha (Ej. 5678,23)");
 				double cantidadMaxima = sc.nextDouble();
 
-				//TODO Completar para la invocación del metodo 3B
+				//TODO Completar para la invocaciï¿½n del metodo 3B
 				//model.consultarFranjasAcumuladoEnRango(double valorInicial, double valorFinal)
 
 				//TODO Mostrar resultado de tipo Cola con InfraccionesFechaHora 
@@ -142,7 +149,7 @@ public class Controller {
 				int addressID = sc.nextInt();
 
 				startTime = System.currentTimeMillis();
-				//TODO Completar para la invocación del metodo 1C
+				//TODO Completar para la invocaciï¿½n del metodo 1C
 				//model.consultarPorAddressId(int addressID)
 
 				endTime = System.currentTimeMillis();
@@ -180,7 +187,7 @@ public class Controller {
 				int numeroLocalizaciones = sc.nextInt();
 
 				startTime = System.currentTimeMillis();
-				//TODO Completar para la invocación del metodo 3C
+				//TODO Completar para la invocaciï¿½n del metodo 3C
 				//model.rankingNLocalizaciones(int N)
 
 				endTime = System.currentTimeMillis();
@@ -214,5 +221,114 @@ public class Controller {
 			}
 		}
 	}
+	
+public void loadPorSemestre(int pSemestre) throws Exception {
+		
+		String meses[] = new String[4];
+		String rutai = "src/data/Moving_Violations_Issued_in_";
+		String rutaf = "_2018.csv";
+		
+		
+		if(pSemestre == 1) {
+			
+			meses[0] = "January";
+			meses[1] = "February";
+			meses[2] = "March";
+			meses[3] = "April";
+			meses[0] = "May";
+			meses[1] = "June";
+		}
+		else if(pSemestre == 2) {
+			
+			meses[2] = "July";
+			meses[3] = "August";
+			meses[0] = "September";
+			meses[1] = "October";
+			meses[2] = "November";
+			meses[3] = "December";
+		}
+		
+		else
+			throw new Exception("Cuatrimestre invÃ¡lido");
+		
+		for(int i = 0; i < 4; i++) {
+			
+			try {
+			
+				File f = new File(rutai + meses[i] + rutaf);
+				System.out.println("Se cargo el mes: "+ i);
+				loadMovingViolations(f);
+				
+			}
+			catch(Exception e) {
+				
+				throw e;
+			}
+		}
+		
+	}
+
+	/**
+	 * Lee la informaciÃ³n de un archivo que le llega por parÃ¡metro y se encarga de meterlo al arreglo 
+	 * @param pArchivo
+	 * @throws Exception
+	 */
+	public void loadMovingViolations(File pArchivo) throws Exception {
+		
+		FileReader lector = new FileReader(pArchivo);
+		BufferedReader br = new BufferedReader(lector);
+		br.readLine();
+		String linea = br.readLine();
+		
+		while(linea != null) {
+			
+			String arreglo[] = linea.split(",");
+			int id = Integer.parseInt(arreglo[0]);
+			int adressid = Integer.parseInt(arreglo[3]);
+			int streetsegid = Integer.parseInt(arreglo[4]);
+			double xcoord = Double.parseDouble(arreglo[5]);
+			double ycoord = Double.parseDouble(arreglo[6]);
+			int fineamt = Integer.parseInt(arreglo[8]);
+			int pagado = Integer.parseInt(arreglo[9]);
+			int penalty = Integer.parseInt(arreglo[10]);
+			boolean accidente = false;
+			if(arreglo[12].equals("Yes"))
+				accidente = true;
+			LocalDateTime fechaHora = convertirFecha_Hora_LDT(arreglo[13]);
+			
+			
+			VOMovingViolations infraccion = new VOMovingViolations(id, arreglo[2], adressid, streetsegid, xcoord, ycoord, 
+					fineamt, pagado, penalty, accidente, fechaHora, arreglo[14], arreglo[15]); 
+			
+			arbolBalanceado.put(id, infraccion);
+			
+			linea = br.readLine();
+
+		}
+		
+		System.out.println("El tamano actual del arreglo dinÃ¡imco es: " + arbolBalanceado.size());
+		br.close();
+	}
+	
+	/**
+	 * Convertir fecha a un objeto LocalDate
+	 * @param fecha fecha en formato dd/mm/aaaa con dd para dia, mm para mes y aaaa para agno
+	 * @return objeto LD con fecha
+	 */
+	private static LocalDate convertirFecha(String fecha){
+		
+		return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	}
+
+	
+	/**
+	 * Convertir fecha y hora a un objeto LocalDateTime
+	 * @param fecha fecha en formato dd/mm/aaaaTHH:mm:ss con dd para dia, mm para mes y aaaa para agno, HH para hora, mm para minutos y ss para segundos
+	 * @return objeto LDT con fecha y hora integrados
+	 */
+	 private static LocalDateTime convertirFecha_Hora_LDT(String fechaHora) {
+		 
+		 return LocalDateTime.parse(fechaHora, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'.000Z'"));
+     }
 
 }
