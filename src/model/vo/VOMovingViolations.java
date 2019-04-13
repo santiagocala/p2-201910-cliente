@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Representation of a Trip object
  */
-public class VOMovingViolations {
+public class VOMovingViolations implements Comparable<VOMovingViolations> {
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------
 	// Atributos
@@ -21,7 +21,7 @@ public class VOMovingViolations {
 	private int ADRESS_ID;
 	
 	// Identificador de la calle donde se cometió la infracción
-	private int STREETSEGID;
+	private String STREETSEGID;
 	
 	// Coordenada x de donde se cometió la infracción.
 	private double XCOORD;
@@ -39,7 +39,7 @@ public class VOMovingViolations {
 	private int PENALTY1;
 	
 	// Indicador de si hubo accidente o no en la infracción. 
-	private boolean ACCIDENTINDICATOR;
+	private String ACCIDENTINDICATOR;
 	
 	// Hora y Fecha de cuándo se cometió la infracción. 
 	private LocalDateTime TICKETISSUEDATE;
@@ -54,8 +54,8 @@ public class VOMovingViolations {
 	// Constructor
 	//---------------------------------------------------------------------------------------------------------------------------------------
 	
-	public VOMovingViolations(int pObjectID, String pLocation, int pAdressID, int pStreetSegID, double pXCoord, double pYCoord, int pFineAmt, 
-			int pTotalPaid, int pPentalty1, boolean pAccidentInidicator, LocalDateTime pTicketIssueDate, String pViolationCode, String pViolationDesc) {
+	public VOMovingViolations(int pObjectID, String pLocation, int pAdressID, String pStreetSegID, double pXCoord, double pYCoord, int pFineAmt, 
+			int pTotalPaid, int pPentalty1, String pAccidentInidicator, LocalDateTime pTicketIssueDate, String pViolationCode, String pViolationDesc) {
 		
 		OBJECT_ID = pObjectID;
 		LOCATION = pLocation;
@@ -70,6 +70,7 @@ public class VOMovingViolations {
 		TICKETISSUEDATE = pTicketIssueDate;
 		VIOLATIONCODE = pViolationCode;
 		VIOLATIONDESC = pViolationDesc;
+	
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------
@@ -107,7 +108,7 @@ public class VOMovingViolations {
 	/**
 	 * @return accidentIndicator - Si hubo un accidente o no.
 	 */
-	public boolean  getAccidentIndicator() {
+	public String  getAccidentIndicator() {
 		return ACCIDENTINDICATOR;
 	}
 		
@@ -121,7 +122,7 @@ public class VOMovingViolations {
 	/**
 	 * @return streetsegid - identificador del segmento de calle
 	 */
-	public int getStreetSegId() {
+	public String getStreetSegId() {
 		return STREETSEGID;
 	}
 	
@@ -174,5 +175,22 @@ public class VOMovingViolations {
 				+ ",\n getAccidentIndicator()=" + getAccidentIndicator() + ",\n getViolationDescription()="
 				+ getViolationDescription() + ",\n getStreetSegId()=" + getStreetSegId() + ",\n getAddressId()="
 				+ getAddressId() + "]\n\n";
+	}
+	
+	@Override
+	public int compareTo(VOMovingViolations pViolation) {
+		
+		int comparador = 0; 
+		int id2 = pViolation.objectId();
+		
+		if(OBJECT_ID != id2){
+		
+			if(OBJECT_ID > id2)
+				comparador = 1;
+			else
+				comparador = -1;
+		}
+		
+		return comparador;
 	}
 }

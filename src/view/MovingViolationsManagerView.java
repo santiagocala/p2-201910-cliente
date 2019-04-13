@@ -166,10 +166,10 @@ public class MovingViolationsManagerView {
 	}
 	
 	
-	public void printReq4C(Contenedora<InfraccionesViolationCode> resultados) {
-		//TODO La estructura Contenedora depende del metodo que retorna el resultado
-		//TODO Imprimir grafica ASCII con los codigos ordenados (de mayor a menor) por el total de sus infracciones 
-	}
+//	public void printReq4C(Contenedora<InfraccionesViolationCode> resultados) {
+//		//TODO La estructura Contenedora depende del metodo que retorna el resultado
+//		//TODO Imprimir grafica ASCII con los codigos ordenados (de mayor a menor) por el total de sus infracciones 
+//	}
 	
 	
 	

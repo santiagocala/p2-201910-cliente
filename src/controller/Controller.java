@@ -24,6 +24,7 @@ public class Controller {
 	private MovingViolationsManager model;
 	
 	private RedBlackBST<Integer, VOMovingViolations> arbolBalanceado;
+	private ArregloDinamico<VOMovingViolations> arregloDinamico;
 
 	/**
 	 * Metodo constructor
@@ -33,6 +34,7 @@ public class Controller {
 		view = new MovingViolationsManagerView();
 		model = new MovingViolationsManager();
 		arbolBalanceado = new RedBlackBST<Integer, VOMovingViolations>();
+		arregloDinamico = new ArregloDinamico<VOMovingViolations>(50);
 	}
 	
 	/**
@@ -58,7 +60,13 @@ public class Controller {
 			case 0:
 				view.printMessage("Ingrese semestre a cargar (1 o 2)");
 				int semestre = sc.nextInt();
-				EstadisticasCargaInfracciones resumenCarga = model.loadMovingViolations(semestre);
+				try{
+				controller.loadPorSemestre(semestre);
+				}
+				catch(Exception e){
+					System.out.println(e.getMessage());
+				}
+				//EstadisticasCargaInfracciones resumenCarga = model.loadMovingViolations(semestre);
 
 				//TODO Mostrar resultado de tipo EstadisticasCargaInfracciones con: 
 				//     total de infracciones cargadas, numero de infracciones cargadas por mes y zona Minimax (Xmin, Ymin) y (Xmax, Ymax)
@@ -280,33 +288,41 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 		br.readLine();
 		String linea = br.readLine();
 		
+		System.out.println("Se va a cargar un mes");
+		
+		int contador = 0;
+		
 		while(linea != null) {
 			
 			String arreglo[] = linea.split(",");
 			int id = Integer.parseInt(arreglo[0]);
 			int adressid = Integer.parseInt(arreglo[3]);
-			int streetsegid = Integer.parseInt(arreglo[4]);
 			double xcoord = Double.parseDouble(arreglo[5]);
 			double ycoord = Double.parseDouble(arreglo[6]);
 			int fineamt = Integer.parseInt(arreglo[8]);
 			int pagado = Integer.parseInt(arreglo[9]);
 			int penalty = Integer.parseInt(arreglo[10]);
-			boolean accidente = false;
-			if(arreglo[12].equals("Yes"))
-				accidente = true;
+			
 			LocalDateTime fechaHora = convertirFecha_Hora_LDT(arreglo[13]);
 			
+			VOMovingViolations infraccion = new VOMovingViolations(id, arreglo[2], adressid, arreglo[4], xcoord, ycoord, 
+					fineamt, pagado, penalty, arreglo[12], fechaHora, arreglo[14], arreglo[15]); 
 			
-			VOMovingViolations infraccion = new VOMovingViolations(id, arreglo[2], adressid, streetsegid, xcoord, ycoord, 
-					fineamt, pagado, penalty, accidente, fechaHora, arreglo[14], arreglo[15]); 
 			
 			arbolBalanceado.put(id, infraccion);
+			arregloDinamico.agregar(infraccion);
+			
+			System.out.println("El tamano actual del arbol es: " + arbolBalanceado.size());
+			System.out.println("El tamano actual del arreglo es: " + arregloDinamico.darTamano());
 			
 			linea = br.readLine();
-
+			
+			
+			contador ++;
+			System.out.println(contador);
 		}
 		
-		System.out.println("El tamano actual del arreglo dináimco es: " + arbolBalanceado.size());
+		
 		br.close();
 	}
 	
