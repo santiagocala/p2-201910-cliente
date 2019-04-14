@@ -3,11 +3,13 @@ package model.data_structures;
 import java.util.Comparator;
 
 /**
- * Estructura de Datos Arreglo Dinamico 
- * Comentario de prueba
+ * 2019-01-23
+ * Estructura de Datos Arreglo Dinamico de Strings.
+ * El arreglo al llenarse (llegar a su maxima capacidad) debe aumentar su capacidad.
+ * @author Fernando De la Rosa
+ *
  */
-public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamico<T> 
-{
+public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	/**
 	 * Capacidad maxima del arreglo
 	 */
@@ -15,109 +17,92 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 	/**
 	 * Numero de elementos en el arreglo (de forma compacta desde la posicion 0)
 	 */
-	private int tamanoAct;
+	private int tamanoAct; 
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
 	private T elementos[ ];
 
+	
 	/**
 	 * Construir un arreglo con la capacidad maxima inicial.
 	 * @param max Capacidad maxima inicial
 	 */
+	@SuppressWarnings("unchecked")
 	public ArregloDinamico( int max )
 	{
-		elementos = (T [])new Comparable[max];
+		elementos = (T[]) new Object[max];
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
 
-	public int darTamano() 
+	@SuppressWarnings("unchecked")
+	public void agregar( T dato )
 	{
-		return tamanoAct;
-	}
-
-	public T darElemento(int i)
-	{
-		return elementos[i];
-	}
-
-
-	@Override
-	public void agregar(T dato) {
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
-			T [ ] copia = elementos;
-			elementos = (T [])new Object[tamanoMax];
+			T[ ] copia = elementos;
+			elementos = (T[]) new Object[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
 				elementos[i] = copia[i];
-			} 
-			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+			}
 		}	
 		elementos[tamanoAct] = dato;
 		tamanoAct++;
 
 	}
-	public void set(int i, T dato)
+
+	public void cambiarTamano( int pTamano)
 	{
-		if(i<tamanoAct||i==tamanoAct)
-		{
-			elementos[i]=dato;
-		}
-		else
-		{
-			System.out.println(i);
-		}
-		
+		tamanoAct = pTamano;
 	}
-	@Override
-	public T buscar(T dato) 
-	{
-		T t= dato;
-		T resp=null;
-		for(int i =0; i<elementos.length;i++)
-		{
-			if(elementos[i].compareTo(t)==0)
-			{
-				resp=elementos[i];
-			}
+	
+	public int darTamano() {
+
+		return tamanoAct;
+	}
+
+	public T darElemento(int i) {
+		T respuesta = null;
+
+		if(i <= tamanoAct){
+			
+			respuesta = elementos[i];
 		}
-		return resp;
+		return respuesta;
 	}
 
 	@Override
+	public T buscar(T dato, Comparator<T> comparador) {
+		T respuesta = null;
+
+		for (int i = 0; i < tamanoAct; i++) 
+		{
+			if(comparador.compare(dato, elementos[i]) == 0)
+			{
+				respuesta = elementos[i];
+			}
+		}
+		return respuesta;
+	}
+
 	public T eliminar(T dato) {
-		 
-		T[] copia=elementos;
-		if(buscar(dato)!=null)
-		{
-			elementos = (T [])new Comparable[tamanoAct-1];
-			for(int i=0; i<elementos.length; i++)
-			{
-				if(copia[i].compareTo(dato)==0)
-				{//No hace nada
-				}
-				else
-				{
-					elementos[i]=copia[i];
-				}
 
-			}
+		T respuesta = null;
+		boolean eliminado = false;
+
+		for(int  i=0; i < elementos.length && eliminado != true; i++) 
+		{
+			if(elementos[i]!= null && elementos[i].equals(dato)) 
+			{
+				respuesta = elementos [i];
+				elementos[i] = null;
+				eliminado = true;
+			}	
 		}
-		return dato;
-	}
-	/**
-	 * Intercambiar los datos de las posicion i y j
-	 * @param i posicion del 1er elemento a intercambiar
-	 * @param j posicion del 2o elemento a intercambiar
-	 */
-	public void exchange( int i, int j)
-	{
-		T copia=elementos[i];
-		elementos[i]=elementos[j];
-		elementos[j]=copia;
+		return respuesta;
 	}
 	
 	/**
@@ -126,15 +111,13 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 	 * @param comparador: Comparador que define con que criterio se va a ordenr el arreglo 
 	 */
 	@SuppressWarnings("unchecked")
-	public void ordenar( Comparator<T> comparador) {
+	public void ordenarPor( Comparator<T> comparador) {
 				
 		System.out.println("El primer objeto antes de ordenar" + elementos[0]);
 		
 		sort(elementos, comparador);
-		
-//		T[] aux = (T[]) new Object[tamanoAct];
-//		sort(elementos, aux, 0, this.tamanoAct - 1, comparador); 
-		
+		T[] aux = (T[]) new Object[tamanoAct];
+		sort(elementos, aux, 0, this.tamanoAct - 1, comparador); 
 		System.out.println("El primer elemento después de ordenar" + elementos[0]);
 		 
 	}
@@ -148,23 +131,32 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 	 * @param hi
 	 */
 	private void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> comparador) {
-		
 		for (int k = lo; k <= hi; k++)
-			aux[k] = a[k];
-
-		int i = lo, j = mid+1;
-		for (int k = lo; k <= hi; k++) {
-			if (i > mid)
-				a[k] = aux[j++];
-			else if (j > hi)
-				a[k] = aux[i++];
-			else if(comparador.compare(aux[j], aux[i]) < 0)
-				a[k] = aux[j++];
-			else 
-				a[k] = aux[i++];
-		}
+			 aux[k] = a[k];
+			 int i = lo, j = mid+1;
+			 for (int k = lo; k <= hi; k++)
+			 {
+			 if (i > mid) a[k] = aux[j++];
+			 else if (j > hi) a[k] = aux[i++];
+			 else if (comparador.compare(aux[j], aux[i]) < 0) a[k] = aux[j++];
+			 else a[k] = aux[i++];
+			 } 
 	} 
 
+	/**
+	 * Aplica la recursión a los elementos del arreglo 
+	 * @param a
+	 * @param aux
+	 * @param lo
+	 * @param hi
+	 */
+	private void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador) {
+		if (hi <= lo) return;
+		 int mid = lo + (hi - lo) / 2;
+		 sort(a, aux, lo, mid, comparador);
+		 sort(a, aux, mid+1, hi, comparador);
+		 merge(a, aux, lo, mid, hi, comparador); 
+	}
 	
 	public void sort(T[] a, Comparator<T> comparador)
 	{	
@@ -200,4 +192,5 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 			j--;
 		}	
 	}
+
 }

@@ -1,19 +1,21 @@
 package model.data_structures;
 
-public interface IArregloDinamico<T extends Comparable<T>> {
+import java.util.Comparator;
+
+public interface IArregloDinamico<T> {
 
 	/**
 	 * Retornar el numero de elementos en el arreglo
 	 * @return
 	 */
-	int darTamano( );
+	public int darTamano( );
 	
 	/**
 	 * Retornar el elemento en la posicion i
 	 * @param i posicion de consulta
 	 * @return elemento de consulta. null si no hay elemento en posicion.
 	 */
-	T darElemento( int i );
+	public T darElemento( int i );
 
 	/**
 	 * Agregar un dato de forma compacta (en la primera casilla disponible) 
@@ -21,13 +23,13 @@ public interface IArregloDinamico<T extends Comparable<T>> {
 	 * @param dato nuevo elemento
 	 */
 	public void agregar( T dato );
-		 
+		
 	/**
 	 * Buscar un dato en el arreglo.
 	 * @param dato Objeto de busqueda en el arreglo
 	 * @return elemento encontrado en el arreglo (si existe). null si no se encontro el dato.
 	 */
-	T buscar(T dato);
+	public T buscar(T dato, Comparator<T> comparador);
 	
 	/**
 	 * Eliminar un dato del arreglo.
@@ -35,6 +37,6 @@ public interface IArregloDinamico<T extends Comparable<T>> {
 	 * @param dato Objeto de eliminacion en el arreglo
 	 * @return dato eliminado
 	 */
-	T eliminar( T dato );
+	public T eliminar( T dato );
 
 }

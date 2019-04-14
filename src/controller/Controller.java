@@ -36,7 +36,7 @@ public class Controller {
 		view = new MovingViolationsManagerView();
 		model = new MovingViolationsManager();
 		arbolBalanceado = new RedBlackBST<Integer, VOMovingViolations>();
-		arregloDinamico = new ArregloDinamico<VOMovingViolations>(50);
+		arregloDinamico = new ArregloDinamico<VOMovingViolations>(3000);
 	}
 	
 	/**
@@ -60,12 +60,15 @@ public class Controller {
 			switch(option){
 
 			case 0:
-				view.printMessage("Ingrese semestre a cargar (1 o 2)");
-				int semestre = sc.nextInt();
-				try{
-				controller.loadPorSemestre(semestre);
+				view.printMessage("Ingrese el semestre (1 o 2)");
+				int numeroSemestre = sc.nextInt();
+				
+				try {
+					
+					controller.loadPorSemestre(numeroSemestre);
 				}
-				catch(Exception e){
+				catch(Exception e) {
+					
 					System.out.println(e.getMessage());
 				}
 				//EstadisticasCargaInfracciones resumenCarga = model.loadMovingViolations(semestre);
@@ -233,9 +236,14 @@ public class Controller {
 		}
 	}
 	
-public void loadPorSemestre(int pSemestre) throws Exception {
+	/**
+	 * Determina cuál de los cuatrimestres convoca al método que los carga en órdne 
+	 * @param pCuatrimestre
+	 * @throws Exception
+	 */
+	public void loadPorSemestre(int pSemestre) throws Exception {
 		
-		String meses[] = new String[4];
+		String meses[] = new String[6];
 		String rutai = "src/data/Moving_Violations_Issued_in_";
 		String rutaf = "_2018.csv";
 		
@@ -246,19 +254,19 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 			meses[1] = "February";
 			meses[2] = "March";
 			meses[3] = "April";
-			meses[0] = "May";
-			meses[1] = "June";
+			meses[4] = "May";
+			meses[5] = "June";
 		}
+
 		else if(pSemestre == 2) {
 			
-			meses[2] = "July";
-			meses[3] = "August";
-			meses[0] = "September";
-			meses[1] = "October";
-			meses[2] = "November";
-			meses[3] = "December";
+			meses[0] = "July";
+			meses[1] = "August";
+			meses[2] = "September";
+			meses[3] = "October";
+			meses[4] = "November";
+			meses[5] = "December";
 		}
-		
 		else
 			throw new Exception("Cuatrimestre inválido");
 		
@@ -267,9 +275,7 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 			try {
 			
 				File f = new File(rutai + meses[i] + rutaf);
-				System.out.println("Se cargo el mes: "+ i);
 				loadMovingViolations(f);
-				
 			}
 			catch(Exception e) {
 				
@@ -291,20 +297,16 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 		br.readLine();
 		String linea = br.readLine();
 		
-		System.out.println("Se va a cargar un mes");
-		
-		int contador = 0;
-		
 		while(linea != null) {
 			
 			String arreglo[] = linea.split(",");
 			int id = Integer.parseInt(arreglo[0]);
-			int adressid = Integer.parseInt(arreglo[3]);
-			double xcoord = Double.parseDouble(arreglo[5]);
-			double ycoord = Double.parseDouble(arreglo[6]);
-			int fineamt = Integer.parseInt(arreglo[8]);
-			int pagado = Integer.parseInt(arreglo[9]);
-			int penalty = Integer.parseInt(arreglo[10]);
+			int adressid = convertirInt(arreglo[3]);
+			double xcoord = convertirDouble(arreglo[5]);
+			double ycoord = convertirDouble(arreglo[6]);
+			int fineamt = convertirInt(arreglo[8]);
+			int pagado = convertirInt(arreglo[9]);
+			int penalty = convertirInt(arreglo[10]);
 			
 			LocalDateTime fechaHora = convertirFecha_Hora_LDT(arreglo[13]);
 			
@@ -315,16 +317,17 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 			arbolBalanceado.put(id, infraccion);
 			arregloDinamico.agregar(infraccion);
 			
-			System.out.println("El tamano actual del arbol es: " + arbolBalanceado.size());
-			System.out.println("El tamano actual del arreglo es: " + arregloDinamico.darTamano());
+			System.out.println("El tamaño del arbol es: " +  arbolBalanceado.size() + " y el tamaño del arreglo es: " + arregloDinamico.darTamano());
 			
 			linea = br.readLine();
-			
-			
-			contador ++;
-			System.out.println(contador);
+
 		}
 		
+		// TODO: Cuidado
+		// Debido a que mi computador no cuenta con la memoria necesaria para hacer los procesos con todos los datos, le puse este límite
+		// Esto es con el fin de poder probar el programa y poder ver si está funcionando. 
+		arregloDinamico.cambiarTamano(2000);
+		System.out.println("la cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
 		
 		br.close();
 	}
@@ -338,7 +341,7 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 	public MaxColaPrioridad<VOViolationCode> reqFuncional1B() {
 
 		//Ordena el arreglo con respecto al código para que sea más fácil
-		arregloDinamico.ordenar(comparadorCodigo);
+		arregloDinamico.ordenarPor(comparadorCodigo);
 		
 		//Crea la cola
 		MaxColaPrioridad<VOViolationCode> cola = new MaxColaPrioridad<VOViolationCode>();
@@ -400,5 +403,38 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 		 
 		 return LocalDateTime.parse(fechaHora, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'.000Z'"));
      }
+	 
+	 /**
+	  * Parser que toma en cuenta ls excepciones de los datos de los archivos
+	  * @param param
+	  * @return
+	  */
+	 private static int convertirInt(String param)
+	 {
+		 int rta;
+		 if (param.equals("")||param.equals("null")) {
+			 rta = 0;
+		 }
+		 else{
+			 rta = Integer.parseInt(param);
+		 }
+		 return rta;
+	 }
+	 
+	 /**
+	  * Convierte cualquier String a un double y maneja excepciones
+	  */
+	 private static double convertirDouble(String param)
+	 {
+		 double rta;
+		 if (param.equals("")||param.equals("null")) {
+			 rta = 0;
+		 }
+		 else 
+		 {
+			 rta = Double.parseDouble(param);
+		 }
+		 return rta;
+	 }
 
 }
