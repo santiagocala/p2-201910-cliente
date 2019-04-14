@@ -23,6 +23,8 @@ public class Controller {
 	// Componente modelo (logica de la aplicacion)
 	private MovingViolationsManager model;
 	
+	private ComparatorXViolationCode comparadorCodigo;
+	
 	private RedBlackBST<Integer, VOMovingViolations> arbolBalanceado;
 	private ArregloDinamico<VOMovingViolations> arregloDinamico;
 
@@ -117,6 +119,7 @@ public class Controller {
 			case 4:
 				view.printMessage("1B. Consultar los N Tipos con mas infracciones. Ingrese el valor de N: ");
 				int numeroTipos = sc.nextInt();
+				MaxColaPrioridad cola = reqFuncional1B();
 
 				//TODO Completar para la invocaci�n del metodo 1B				
 				//model.rankingNViolationCodes(int N)
@@ -324,6 +327,57 @@ public void loadPorSemestre(int pSemestre) throws Exception {
 		
 		
 		br.close();
+	}
+	
+	/**
+	 * Método que retorna los tipos de infracciones en una fila, cuyo promedio de multas está en un rango dado. 
+	 * @param fechaInicial: La fecha inicial del rango
+	 * @param fechaFinal: La fecha final del rango 
+	 * @return Una fila con todas las infracciones. 
+	 */
+	public MaxColaPrioridad<VOViolationCode> reqFuncional1B() {
+
+		//Ordena el arreglo con respecto al código para que sea más fácil
+		arregloDinamico.ordenar(comparadorCodigo);
+		
+		//Crea la cola
+		MaxColaPrioridad<VOViolationCode> cola = new MaxColaPrioridad<VOViolationCode>();
+		
+		String codigo = arregloDinamico.darElemento(0).getViolationCode();
+		int cantidad = 0;
+		
+		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicón, encuentra la última, suma el total de sus multas y lo divide por la cantidad que hubo.
+		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
+			
+			VOMovingViolations actual = arregloDinamico.darElemento(i);
+			
+			if(codigo.equals(actual.getViolationCode())) {
+				
+				cantidad ++;
+			}
+			
+			//Apenas encuentra uno diferente al que venía sucediendo, obtiene el total de sus multas, saca un promedio y crea una instancia de la clase VOViolationCode
+			//Esta instancia posteriormente agraga a la cola y se lee el siguiente elemento
+			else {
+				
+				cola.agregar(new VOViolationCode(codigo, cantidad));
+				System.out.println(codigo + " con: "  + cantidad + " infracciones" );
+				cantidad = 0;
+				
+				if(i+1 < arregloDinamico.darTamano())
+					codigo = arregloDinamico.darElemento(i+1).getViolationCode();
+					
+			}
+		}
+		
+		if(cantidad != 0) {
+			
+			cola.agregar(new VOViolationCode(codigo, cantidad));
+			System.out.println(codigo + " con: " + cantidad + " infracciones");
+		}
+		
+		return cola; 
+		
 	}
 	
 	/**
