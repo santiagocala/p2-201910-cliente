@@ -352,10 +352,10 @@ public class Controller {
 	  * @param int N: N�mero de franjas horarias que tienen m�s infracciones
 	  * @return Cola con objetos InfraccionesFranjaHoraria
 	  */
-	public IQueue<InfraccionesFranjaHoraria> rankingNFranjas(int N)
+	public MaxColaPrioridad<InfraccionesFranjaHoraria> rankingNFranjas(int N)
 	{
 		// TODO completar
-		Queue resp = new Queue<InfraccionesFranjaHoraria>();
+		MaxColaPrioridad resp = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
 		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
 		for(int i=0; i <arregloDinamico.darTamano();i++)
 		{
@@ -365,9 +365,9 @@ public class Controller {
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
-			
+			resp.agregar(listaHoras[j]);
 		}
-		return null;		
+		return resp;		
 	}
 	
 	/**
