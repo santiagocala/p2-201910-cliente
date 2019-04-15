@@ -10,7 +10,7 @@ import model.data_structures.Queue;
  * Agrupa las infracciones por un rango de fecha/hora segun sea el caso
  */
 
-public class InfraccionesFranjaHoraria extends EstadisticaInfracciones {	
+public class InfraccionesFranjaHoraria extends EstadisticaInfracciones implements Comparable<InfraccionesFranjaHoraria> {	
 
 	@Override
 	public String toString() {
@@ -56,6 +56,12 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones {
 	 */
 	public LocalTime getFranjaFinal() {
 		return hora_Final;
+	}
+
+	@Override
+	public int compareTo(InfraccionesFranjaHoraria o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

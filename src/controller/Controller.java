@@ -362,6 +362,10 @@ public class Controller {
 			//Revisar lo de la hora y el 24
 			listaHoras[actual.getTicketIssueDate().getHour()].agregarALista(actual);
 		}
+		for(int j=0; j<listaHoras.length;j++)
+		{
+			
+		}
 		return null;		
 	}
 	
