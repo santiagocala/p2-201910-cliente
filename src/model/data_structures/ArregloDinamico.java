@@ -105,74 +105,92 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		return respuesta;
 	}
 	
-	/**
-	 * Ordena el arreglo con base en un comparador que entra por parámetro 
-	 * Utiliza el método de MergeSort para poder llevar a cabo el ordenamiento
-	 * @param comparador: Comparador que define con que criterio se va a ordenr el arreglo 
-	 */
-	@SuppressWarnings("unchecked")
-	public void ordenarPor( Comparator<T> comparador) {
-				
-		System.out.println("El primer objeto antes de ordenar" + elementos[0]);
-		
-		sort(elementos, comparador);
-		T[] aux = (T[]) new Object[tamanoAct];
-		sort(elementos, aux, 0, this.tamanoAct - 1, comparador); 
-		System.out.println("El primer elemento después de ordenar" + elementos[0]);
-		 
-	}
-	
-	/**
-	 * Método que primero genera una copia y después agrega una parte 
-	 * @param a
-	 * @param aux
-	 * @param lo
-	 * @param mid
-	 * @param hi
-	 */
-	private void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> comparador) {
-		for (int k = lo; k <= hi; k++)
-			 aux[k] = a[k];
-			 int i = lo, j = mid+1;
-			 for (int k = lo; k <= hi; k++)
-			 {
-			 if (i > mid) a[k] = aux[j++];
-			 else if (j > hi) a[k] = aux[i++];
-			 else if (comparador.compare(aux[j], aux[i]) < 0) a[k] = aux[j++];
-			 else a[k] = aux[i++];
-			 } 
-	} 
-
-	/**
-	 * Aplica la recursión a los elementos del arreglo 
-	 * @param a
-	 * @param aux
-	 * @param lo
-	 * @param hi
-	 */
-	private void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador) {
+	private void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador)
+	{
 		if (hi <= lo) return;
-		 int mid = lo + (hi - lo) / 2;
-		 sort(a, aux, lo, mid, comparador);
-		 sort(a, aux, mid+1, hi, comparador);
-		 merge(a, aux, lo, mid, hi, comparador); 
+		int mid = lo + (hi - lo) / 2;
+		sort(a, aux, lo, mid, comparador);
+		sort(a, aux, mid+1, hi, comparador);
+		merge(a, aux, lo, mid, hi, comparador);
 	}
-	
-	public void sort(T[] a, Comparator<T> comparador)
-	{	
-
-		int N = a.length;
-		for (int i = 0; i < N; i++)
-			for (int j = i; j > 0; j--) {
-				if(comparador.compare(a[j], a[j-1]) < 0){
-					
-					T temporal = a[j];
-					a[j] = a[j-1];
-					a[j-1] = temporal;
-				}
-				else break;
-			}
+	public void sort(Comparator<T> comparador)
+	{
+		T[] aux = (T[]) new Object[elementos.length];
+		
+		sort(elementos, aux, 0, this.tamanoAct -1, comparador);
 	} 
+	private void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> comparador)
+	{
+
+		for (int k = lo; k <= hi; k++)
+			aux[k] = a[k];
+		int i = lo, j = mid+1;
+		for (int k = lo; k <= hi; k++)
+		{
+			if (i > mid) a[k] = aux[j++];
+			else if (j > hi) a[k] = aux[i++];
+			else if (comparador.compare(aux[j], aux[i]) <= 0) a[k] = aux[j++];
+			else a[k] = aux[i++];
+		}
+	} 
+//	/**
+//	 * Ordena el arreglo con base en un comparador que entra por parámetro 
+//	 * Utiliza el método de MergeSort para poder llevar a cabo el ordenamiento
+//	 * @param comparador: Comparador que define con que criterio se va a ordenr el arreglo 
+//	 */
+//	@SuppressWarnings("unchecked")
+//	public void ordenarPor( Comparator<T> comparador) {
+//				
+//		System.out.println("El primer objeto antes de ordenar" + elementos[0]);
+//		
+//		sort(elementos, comparador);
+//		T[] aux = (T[]) new Object[tamanoAct];
+//		sort(elementos, aux, 0, this.tamanoAct - 1, comparador); 
+//		
+//		System.out.println("El primer elemento después de ordenar" + elementos[0]);
+//		 
+//	}
+//	
+//	/**
+//	 * Método que primero genera una copia y después agrega una parte 
+//	 * @param a
+//	 * @param aux
+//	 * @param lo
+//	 * @param mid
+//	 * @param hi
+//	 */
+//	private void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> comparador) {
+//		for (int k = lo; k <= hi; k++)
+//			 aux[k] = a[k];
+//			 int i = lo, j = mid+1;
+//			 for (int k = lo; k <= hi; k++)
+//			 {
+//			 if (i > mid) a[k] = aux[j++];
+//			 else if (j > hi) a[k] = aux[i++];
+//			 else if (comparador.compare(aux[j], aux[i]) < 0) a[k] = aux[j++];
+//			 else a[k] = aux[i++];
+//			 } 
+//	} 
+//
+//	/**
+//	 * Aplica la recursión a los elementos del arreglo 
+//	 * @param a
+//	 * @param aux
+//	 * @param lo
+//	 * @param hi
+//	 */
+//	private void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador) {
+//		if (hi <= lo) return;
+//		 int mid = lo + (hi - lo) / 2;
+//		 sort(a, aux, lo, mid, comparador);
+//		 sort(a, aux, mid+1, hi, comparador);
+//		 merge(a, aux, lo, mid, hi, comparador); 
+//	}
+//	
+//	public void sort(T[] a, Comparator<T> comparador) {
+//		T[] aux = (T[]) new Object[a.length];
+//		 sort(a, aux, 0, a.length - 1, comparador);
+//	} 
 	
 	/**
 	 * Método que invierte el arreglo y todos los elementos que estaban al comienzo. 
