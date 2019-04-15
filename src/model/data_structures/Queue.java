@@ -3,7 +3,9 @@ package model.data_structures;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Queue<Item> implements Iterable<Item> {
+import model.vo.VOMovingViolations;
+
+public class Queue<Item> implements Iterable<Item>, IQueue<Item> {
 	private Node<Item> first;    // beginning of queue
 	private Node<Item> last;     // end of queue
 	private int n;               // number of elements on queue
@@ -124,4 +126,5 @@ public class Queue<Item> implements Iterable<Item> {
 			return item;
 		}
 	}
+
 }

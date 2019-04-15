@@ -27,8 +27,8 @@ public class Controller {
 	private ComparatorXViolationCode comparadorCodigo;
 	private ComparatorXCoordenadas comparadorCoordenadas;
 	private ComparatorXDesc comparadorDesc;
+	private CompoaratorXFecha comparadorFecha;
 	
-	private RedBlackBST<Integer, VOMovingViolations> arbolBalanceado;
 	private ArregloDinamico<VOMovingViolations> arregloDinamico;
 
 	/**
@@ -38,7 +38,6 @@ public class Controller {
 	{
 		view = new MovingViolationsManagerView();
 		model = new MovingViolationsManager();
-		arbolBalanceado = new RedBlackBST<Integer, VOMovingViolations>();
 		arregloDinamico = new ArregloDinamico<VOMovingViolations>(3000);
 	}
 	
@@ -148,17 +147,17 @@ public class Controller {
 
 			case 6:
 				
-				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
-				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
-				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
-				
-				controller.arregloDinamico.mergeSort(comparadorDesc);
-				System.out.println("--------");
-				
-				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
-				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
-				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
-				
+//				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
+//				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
+//				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
+//				
+//				controller.arregloDinamico.mergeSort(comparadorDesc);
+//				System.out.println("--------");
+//				
+//				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
+//				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
+//				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
+//				
 				
 //				view.printMessage("Ingrese la cantidad minima de dinero que deben acumular las infracciones en sus rangos de fecha  (Ej. 1234,56)");
 //				double cantidadMinima = sc.nextDouble();
@@ -395,6 +394,8 @@ public class Controller {
 		return null;		
 	}
 	
+	
+	
 	/**
 	 * MÃ©todo que retorna los tipos de infracciones en una fila, cuyo promedio de multas estÃ¡ en un rango dado. 
 	 * @param fechaInicial: La fecha inicial del rango
@@ -447,14 +448,73 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * Método que se encarga de crear un árbol que tenga como llave las coordenadas y guarde elementos de tipo InfraccionesLocalizacion
+	 * Por parámetro también le entran dos coordenadas específicas que se quieran buscar dentro del árbol ya creado. 
+	 * @param pCoordenadaX - La coordenada x que se quiere utilizar como llave para la búsqueda.
+	 * @param pCoordenadaY - La coordenada y que se quiere utilizar como llave para la búsqueda.  
+	 * @return un objeto d etipo InfraccionesLocalizacion con la información de esa ubicación específica. 
 	 */
-	public void reqFuncional2B(InfraccionesLocalizacion pLocalizacion) {
+	public InfraccionesLocalizacion reqFuncional2B(double pCoordenadaX, double pCoordenadaY) {
 		 
 		//Ordena el arreglo para que quede ordenado por localización geográfica. 
 		arregloDinamico.mergeSort(comparadorCoordenadas);
 		
+		//Recorre el arreglo ordenado que ya está agrupado por ubicación geográfica. 
+		RedBlackBST<Coordenadas,InfraccionesLocalizacion> arbolLocalizacion = new RedBlackBST<Coordenadas,InfraccionesLocalizacion>();
 		
+		Coordenadas coords = new Coordenadas(arregloDinamico.darElemento(0).getXCoord(), arregloDinamico.darElemento(0).getYCoord());
+		int cantidad = 0;
+		
+		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicÃ³n, encuentra la Ãºltima, suma el total de sus multas y lo divide por la cantidad que hubo.
+		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
+			
+			VOMovingViolations actual = arregloDinamico.darElemento(i);
+			Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
+			
+			if(actual.getXCoord() == coords.getX() && actual.getYCoord() == coords.getY()) {
+				
+				cantidad ++;
+				cola.enqueue(actual);
+			}
+			
+			//Apenas encuentra uno diferente al que venÃ­a sucediendo, obtiene el total de sus multas, saca un promedio y crea una instancia de la clase VOViolationCode
+			//Esta instancia posteriormente agraga a la cola y se lee el siguiente elemento
+			else {
+				
+				arbolLocalizacion.put(coords, new InfraccionesLocalizacion(coords.getX(), coords.getY(), actual.getLocation(), actual.getAddressId(), actual.getStreetSegId(), cola));
+				System.out.println("(" + coords.getX() + ", " + coords.getY() + ")  con: "  + cantidad + " infracciones" );
+				cantidad = 0;
+				
+				//Se cambian los valores de x y y del comparador para que lea la siguiente ubicación geográfica. 
+				if(i+1 < arregloDinamico.darTamano()) {
+					coords.cambiarX(arregloDinamico.darElemento(i+1).getXCoord());
+					coords.cambiarY(arregloDinamico.darElemento(i+1).getYCoord());
+				}
+					
+			}
+		}
+		
+		if(cantidad != 0) {
+			
+			VOMovingViolations actual = arregloDinamico.darElemento(arregloDinamico.darTamano()-1);
+			arbolLocalizacion.put(coords, new InfraccionesLocalizacion(coords.getX(), coords.getY(), actual.getLocation(), actual.getAddressId(), actual.getStreetSegId(), null));
+			System.out.println("(" + coords.getX() + ", " + coords.getY() + ")  con: "  + cantidad + " infracciones" );
+		}
+		
+		Coordenadas aBuscar = new Coordenadas(pCoordenadaX, pCoordenadaY);
+		return arbolLocalizacion.get(aBuscar);
+	}
+	
+	
+	public MaxColaPrioridad<InfraccionesFechaHora> reqFuncional3B(int pValorMinimo, int pValorMaximo) {
+		
+		//Se crea la cola de prioridad donde se van a guardr las Infracciones Fecha-Hora que cumplen los criterios
+		MaxColaPrioridad<InfraccionesFechaHora> cola = new MaxColaPrioridad<InfraccionesFechaHora>();
+		
+		//Ordena el arregloDinámico principal por hora.
+		arregloDinamico.quickSort(comparadorFecha);
+		
+		return cola;
 	}
 	
 	/**
@@ -479,9 +539,9 @@ public class Controller {
      }
 	 
 	 /**
-	  * Parser que toma en cuenta ls excepciones de los datos de los archivos
-	  * @param param
-	  * @return
+	  * Método que se encarga de convertir a entero las entradas que entran por CSV
+	  * @param param - String leída del archivo que se quiere convertir
+	  * @return El número ya de tipo entero que se puede ingresar a la clase. 
 	  */
 	 private static int convertirInt(String param)
 	 {
@@ -498,7 +558,9 @@ public class Controller {
 	 }
 	 
 	 /**
-	  * Convierte cualquier String a un double y maneja excepciones
+	  * Método que se encarga de convertir a double las entradas que entran por CSV
+	  * @param param - String leída del archivo que se quiere convertir
+	  * @return El número ya de tipo double que se puede ingresar a la clase. 
 	  */
 	 private static double convertirDouble(String param)
 	 {

@@ -24,7 +24,7 @@ public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 	
 	private int addressID;
 	
-	private int streetID;
+	private String streetID;
 	
 	
 	/**
@@ -32,7 +32,7 @@ public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 	 * @param lista the lista
 	 */
 	
-	public InfraccionesLocalizacion(double xcoor, double ycoor, String locat, int address, int street, IQueue<VOMovingViolations> lista) {
+	public InfraccionesLocalizacion(double xcoor, double ycoor, String locat, int address, String street, IQueue<VOMovingViolations> lista) {
 		super(lista);
 		xcoord = xcoor;
 		ycoord = ycoor;
@@ -108,7 +108,7 @@ public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 	 *
 	 * @return the streetID
 	 */
-	public int getStreetID() {
+	public String getStreetID() {
 		return streetID;
 	}
 
@@ -118,7 +118,7 @@ public class InfraccionesLocalizacion extends EstadisticaInfracciones {
 	 *
 	 * @param streetID the streetID to set
 	 */
-	public void setStreetID(int pStreetID) {
+	public void setStreetID(String pStreetID) {
 		this.streetID = pStreetID;
 	}
 	

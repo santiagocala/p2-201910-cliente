@@ -134,29 +134,34 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		}
 	} 
 	
-//	public static void quickSort(T[] a) {
-//		StdRandom.shuffle(a);
-//		sort(a, 0, a.length - 1);
-//	} 
-//	private static void quickSort(Comparable[] a, int lo, int hi) {
-//		if (hi <= lo) return;
-//		int j = partition(a, lo, hi);
-//		quickSort(a, lo, j-1);
-//		quickSort(a, j+1, hi);
-//	}
-//
-//	private static int partition(Comparable[] a, int lo, int hi) {
-//		int i = lo, j = hi+1;
-//		while (true) {
-//			while (less(a[++i], a[lo]))
-//				if (i == hi) break;
-//			while (less(a[lo], a[--j]))
-//				if (j == lo) break; 
-//			if (i >= j) break;
-//			exch(a, i, j);
-//		}
-//		exch(a, lo, j);    return j;
-//	} 
+	public void shuffle(T[] a) {
+		
+		
+	}
+	
+	public void quickSort(Comparator<T> comparador) {
+		//shuffle(elementos);
+		quickSort(elementos, 0, elementos.length - 1, comparador);
+	} 
+	private void quickSort(T[] a, int lo, int hi, Comparator<T> comparador) {
+		if (hi <= lo) return;
+		int j = partition(a, lo, hi, comparador);
+		quickSort(a, lo, j-1, comparador);
+		quickSort(a, j+1, hi, comparador);
+	}
+
+	private int partition(T[] a, int lo, int hi, Comparator<T> comparador) {
+		int i = lo, j = hi+1;
+		while (true) {
+			while (comparador.compare(a[++i], a[lo]) < 0)
+				if (i == hi) break;
+			while (comparador.compare(a[lo], a[--j]) < 0)
+				if (j == lo) break; 
+			if (i >= j) break;
+			exch(a, i, j);
+		}
+		exch(a, lo, j);    return j;
+	} 
 	
 	/**
 	 * MÃ©todo que invierte el arreglo y todos los elementos que estaban al comienzo. 
@@ -175,6 +180,19 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 			i++;
 			j--;
 		}	
+	}
+	
+	/**
+	 * Intercambia dos elementos dentro de un arreglo dado por parámetro
+	 * @param a El arreglo que tiene dos posiciones que se quieren intercambiar
+	 * @param i La primera posición que se quiere tener en cuenta
+	 * @param j La segunda posición que se quiere tener en cuenta
+	 */
+	private void exch(T[] a, int i, int j) {
+		
+		T temporal = elementos[i];
+		elementos[i] = elementos[j];
+		elementos[j] = temporal;
 	}
 
 }

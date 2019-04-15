@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import model.data_structures.IQueue;
 
-public class InfraccionesFechaHora extends EstadisticaInfracciones {
+public class InfraccionesFechaHora extends EstadisticaInfracciones implements Comparable<InfraccionesFechaHora> {
 
 	@Override
 	public String toString() {
@@ -23,6 +23,12 @@ public class InfraccionesFechaHora extends EstadisticaInfracciones {
 		// TODO Auto-generated constructor stub
 		fecha_hora_inicial = pFechaHoraIni; 
 		fecha_hora_final = pFechaHoraFin; 
+	}
+
+	@Override
+	public int compareTo(InfraccionesFechaHora dato) {
+		
+		return totalInfracciones - dato.totalInfracciones;
 	}
 
 }
