@@ -392,7 +392,7 @@ public class LinkedList<T extends Comparable<T>> {
 		{
 			if( i == iL)
 			{
-				if( pro.hasPrevious())
+				if( pro!=null && pro.hasPrevious())
 				{
 					NodeList<T> temp = pro.getNext();
 					pro.getPrevius().setNext(temp);

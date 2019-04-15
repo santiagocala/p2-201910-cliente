@@ -65,9 +65,11 @@ public class Controller {
 				view.printMessage("Ingrese el semestre (1 o 2)");
 				int numeroSemestre = sc.nextInt();
 				
-				try {
+				try 
+				{
 					
 					controller.loadPorSemestre(numeroSemestre);
+					model.setArregloDinamico(arregloDinamico);
 				}
 				catch(Exception e) {
 					
@@ -88,6 +90,7 @@ public class Controller {
 				model.rankingNFranjas(numeroFranjas);
 				
 				//TODO Mostrar resultado de tipo Cola con N InfraccionesFranjaHoraria
+				//Lo hace en el mismo método por eficiencia
 				//view.printReq1A();
 				break;
 
