@@ -59,10 +59,22 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones implement
 	}
 
 	@Override
-	public int compareTo(InfraccionesFranjaHoraria o) {
+	public int compareTo(InfraccionesFranjaHoraria that) {
 		// TODO Auto-generated method stub
 		int resp=2;
 		//Por numero de infracciones
+		if(this.totalInfracciones<that.totalInfracciones)
+		{
+			resp=-1;
+		}
+		else if(this.totalInfracciones>that.totalInfracciones)
+		{
+			resp=1;
+		}
+		else
+		{
+			resp=0;
+		}
 		return resp;
 	}
 	

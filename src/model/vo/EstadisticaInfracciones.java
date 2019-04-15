@@ -11,13 +11,6 @@ import model.data_structures.IQueue;
  */
 
 public class EstadisticaInfracciones {
-	
-	@Override
-	public String toString() {
-		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
-				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
-				+ valorTotal + "]\n\n";
-	}
 
 	/**	
 	 * Numero total de infraciones del conjunto
@@ -65,10 +58,33 @@ public class EstadisticaInfracciones {
 		valorTotal = -100000.0;         //TODO Calcular con base en la lista
 	}
 	
+	@Override
+	public String toString() 
+	{
+		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
+				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
+				+ valorTotal + "]\n\n";
+	}
 	//=========================================================
 	//Metodos Getters and Setters
 	//=========================================================
 	
+
+	public void setTotalInfracciones(int totalInfracciones) {
+		this.totalInfracciones = totalInfracciones;
+	}
+
+	public void setPorcentajeAccidentes(double porcentajeAccidentes) {
+		this.porcentajeAccidentes = porcentajeAccidentes;
+	}
+
+	public void setPorcentajeNoAccidentes(double porcentajeNoAccidentes) {
+		this.porcentajeNoAccidentes = porcentajeNoAccidentes;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 	/**
 	 * Gets the total infracciones.
 	 * @return the total infracciones

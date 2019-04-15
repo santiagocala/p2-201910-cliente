@@ -3,7 +3,9 @@ package model.logic;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import model.data_structures.ArregloDinamico;
 import model.data_structures.IQueue;
+import model.data_structures.MaxColaPrioridad;
 import model.data_structures.Queue;
 import model.vo.EstadisticaInfracciones;
 import model.vo.EstadisticasCargaInfracciones;
@@ -13,11 +15,12 @@ import model.vo.InfraccionesFranjaHoraria;
 import model.vo.InfraccionesFranjaHorariaViolationCode;
 import model.vo.InfraccionesLocalizacion;
 import model.vo.InfraccionesViolationCode;
+import model.vo.VOMovingViolations;
 
 public class MovingViolationsManager {
 
 	//TODO Definir atributos necesarios
-	
+	private ArregloDinamico<VOMovingViolations>arregloDinamico;
 	/**
 	 * Metodo constructor
 	 */
@@ -36,6 +39,10 @@ public class MovingViolationsManager {
 		
 		return null;
 	}
+	public void setArregloDinamico(ArregloDinamico that)
+	{
+		this.arregloDinamico=that;
+	}
 
 	/**
 	  * Requerimiento 1A: Obtener el ranking de las N franjas horarias
@@ -46,8 +53,28 @@ public class MovingViolationsManager {
 	public IQueue<InfraccionesFranjaHoraria> rankingNFranjas(int N)
 	{
 		// TODO completar
-		Queue resp = new Queue<InfraccionesFranjaHoraria>();
-		return null;		
+		MaxColaPrioridad maxHeap = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
+		Queue resp = new Queue();
+		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
+		for(int i=0; i <arregloDinamico.darTamano();i++)
+		{
+			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			//Revisar lo de la hora y el 24
+			listaHoras[actual.getTicketIssueDate().getHour()].agregarALista(actual);
+		}
+		for(int j=0; j<listaHoras.length;j++)
+		{
+			maxHeap.agregar(listaHoras[j]);
+		}
+		for(int i=0; i<N;i++)
+		{
+			//Cambiar maxHeap porque delMax no funciona
+			InfraccionesFranjaHoraria actual= (InfraccionesFranjaHoraria) maxHeap.delMax();
+			resp.enqueue(actual);
+			//Se imprime de una vez por eficiencia
+			System.out.println(actual.toString());
+		}
+		return (IQueue) resp;	
 	}
 	
 	/**
