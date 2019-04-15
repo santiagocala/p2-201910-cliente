@@ -134,13 +134,11 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		}
 	} 
 	
-	public void shuffle(T[] a) {
-		
-		
-	}
+	 	
 	
 	public void quickSort(Comparator<T> comparador) {
-		//shuffle(elementos);
+		
+		//StdRandom.shuffle(elementos);
 		quickSort(elementos, 0, elementos.length - 1, comparador);
 	} 
 	private void quickSort(T[] a, int lo, int hi, Comparator<T> comparador) {

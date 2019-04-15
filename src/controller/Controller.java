@@ -522,11 +522,12 @@ public class Controller {
 		
 		//Se crea la cola de prioridad donde se van a guardr las Infracciones Fecha-Hora que cumplen los criterios
 		MaxColaPrioridad<InfraccionesFechaHora> cola = new MaxColaPrioridad<InfraccionesFechaHora>();
-		RedBlackBST<InfraccionesFranjaHoraria, InfraccionesFechaHora> arbolFranjas = new RedBlackBST<InfraccionesFranjaHoraria,InfraccionesFechaHora>();
-		
+		RedBlackBST<FranjaFechaHora, InfraccionesFechaHora> arbolFranjas = new RedBlackBST<FranjaFechaHora,InfraccionesFechaHora>();
 		
 		//Ordena el arregloDinámico principal por hora.
 		arregloDinamico.quickSort(comparadorFecha);
+		
+		
 		
 		
 		
