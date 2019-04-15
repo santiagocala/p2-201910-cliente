@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import model.data_structures.IQueue;
+import model.data_structures.Queue;
 import model.vo.EstadisticaInfracciones;
 import model.vo.EstadisticasCargaInfracciones;
 import model.vo.InfraccionesFecha;
@@ -45,6 +46,7 @@ public class MovingViolationsManager {
 	public IQueue<InfraccionesFranjaHoraria> rankingNFranjas(int N)
 	{
 		// TODO completar
+		Queue resp = new Queue<InfraccionesFranjaHoraria>();
 		return null;		
 	}
 	

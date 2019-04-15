@@ -86,7 +86,7 @@ public class Controller {
 				int numeroFranjas = sc.nextInt();
 
 				//TODO Completar para la invocaci�n del metodo 1A
-				//model.rankingNFranjas(int N)
+				model.rankingNFranjas(numeroFranjas);
 				
 				//TODO Mostrar resultado de tipo Cola con N InfraccionesFranjaHoraria
 				//view.printReq1A( ...);
@@ -115,8 +115,7 @@ public class Controller {
 				LocalDate fechaFinal = ManejoFechaHora.convertirFecha_LD( fechaFinalStr );
 
 				//TODO Completar para la invocacion del metodo 3A
-				//model.consultarInfraccionesPorRangoFechas(LocalDate fechaInicial, LocalDate fechaFinal)
-
+				//model.consultarInfraccionesPorRangoFech 
 				//TODO Mostrar resultado de tipo Cola de InfraccionesFecha
 				//view.printReq3A( ... )
 				break;
@@ -345,6 +344,55 @@ public class Controller {
 		System.out.println("la cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
 		
 		br.close();
+	}
+	
+	/**
+	  * Requerimiento 1A: Obtener el ranking de las N franjas horarias
+	  * que tengan m�s infracciones. 
+	  * @param int N: N�mero de franjas horarias que tienen m�s infracciones
+	  * @return Cola con objetos InfraccionesFranjaHoraria
+	  */
+	public IQueue<InfraccionesFranjaHoraria> rankingNFranjas(int N)
+	{
+		// TODO completar
+		Queue resp = new Queue<InfraccionesFranjaHoraria>();
+		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
+		for(int i=0; i <arregloDinamico.darTamano();i++)
+		{
+			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			//Revisar lo de la hora y el 24
+			listaHoras[actual.getTicketIssueDate().getHour()].agregarALista(actual);
+		}
+		for(int j=0; j<listaHoras.length;j++)
+		{
+			
+		}
+		return null;		
+	}
+	
+	/**
+	  * Requerimiento 2A: Consultar  las  infracciones  por
+	  * Localizaci�n  Geogr�fica  (Xcoord, Ycoord) en Tabla Hash.
+	  * @param  double xCoord : Coordenada X de la localizacion de la infracci�n
+	  *			double yCoord : Coordenada Y de la localizacion de la infracci�n
+	  * @return Objeto InfraccionesLocalizacion
+	  */
+	public InfraccionesLocalizacion consultarPorLocalizacionHash(double xCoord, double yCoord)
+	{
+		// TODO completar
+		return null;		
+	}
+	
+	/**
+	  * Requerimiento 3A: Buscar las infracciones por rango de fechas
+	  * @param  LocalDate fechaInicial: Fecha inicial del rango de b�squeda
+	  * 		LocalDate fechaFinal: Fecha final del rango de b�squeda
+	  * @return Cola con objetos InfraccionesFecha
+	  */
+	public IQueue<InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDate fechaInicial, LocalDate fechaFinal)
+	{
+		// TODO completar
+		return null;		
 	}
 	
 	/**
