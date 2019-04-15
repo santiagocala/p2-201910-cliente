@@ -88,7 +88,7 @@ public class Controller {
 				model.rankingNFranjas(numeroFranjas);
 				
 				//TODO Mostrar resultado de tipo Cola con N InfraccionesFranjaHoraria
-				//view.printReq1A( ...);
+				//view.printReq1A();
 				break;
 
 			case 2:
@@ -351,10 +351,11 @@ public class Controller {
 	  * @param int N: N�mero de franjas horarias que tienen m�s infracciones
 	  * @return Cola con objetos InfraccionesFranjaHoraria
 	  */
-	public MaxColaPrioridad<InfraccionesFranjaHoraria> rankingNFranjas(int N)
+	public IQueue rankingNFranjas(int N)
 	{
 		// TODO completar
-		MaxColaPrioridad resp = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
+		MaxColaPrioridad maxHeap = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
+		Queue resp = new Queue();
 		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
 		for(int i=0; i <arregloDinamico.darTamano();i++)
 		{
@@ -364,9 +365,17 @@ public class Controller {
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
-			resp.agregar(listaHoras[j]);
+			maxHeap.agregar(listaHoras[j]);
 		}
-		return resp;		
+		for(int i=0; i<N;i++)
+		{
+			//Cambiar maxHeap porque delMax no funciona
+			InfraccionesFranjaHoraria actual= (InfraccionesFranjaHoraria) maxHeap.delMax();
+			resp.enqueue(actual);
+			//Se imprime de una vez por eficiencia
+			System.out.println(actual.toString());
+		}
+		return (IQueue) resp;
 	}
 	
 	/**
