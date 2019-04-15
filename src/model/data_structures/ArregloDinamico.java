@@ -105,19 +105,19 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		return respuesta;
 	}
 	
-	private void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador)
+	private void mergeSort(T[] a, T[] aux, int lo, int hi, Comparator<T> comparador)
 	{
 		if (hi <= lo) return;
 		int mid = lo + (hi - lo) / 2;
-		sort(a, aux, lo, mid, comparador);
-		sort(a, aux, mid+1, hi, comparador);
+		mergeSort(a, aux, lo, mid, comparador);
+		mergeSort(a, aux, mid+1, hi, comparador);
 		merge(a, aux, lo, mid, hi, comparador);
 	}
-	public void sort(Comparator<T> comparador)
+	public void mergeSort(Comparator<T> comparador)
 	{
 		T[] aux = (T[]) new Object[elementos.length];
 		
-		sort(elementos, aux, 0, this.tamanoAct -1, comparador);
+		mergeSort(elementos, aux, 0, this.tamanoAct -1, comparador);
 	} 
 	private void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> comparador)
 	{
@@ -133,7 +133,30 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 			else a[k] = aux[i++];
 		}
 	} 
-
+	
+//	public static void quickSort(T[] a) {
+//		StdRandom.shuffle(a);
+//		sort(a, 0, a.length - 1);
+//	} 
+//	private static void quickSort(Comparable[] a, int lo, int hi) {
+//		if (hi <= lo) return;
+//		int j = partition(a, lo, hi);
+//		quickSort(a, lo, j-1);
+//		quickSort(a, j+1, hi);
+//	}
+//
+//	private static int partition(Comparable[] a, int lo, int hi) {
+//		int i = lo, j = hi+1;
+//		while (true) {
+//			while (less(a[++i], a[lo]))
+//				if (i == hi) break;
+//			while (less(a[lo], a[--j]))
+//				if (j == lo) break; 
+//			if (i >= j) break;
+//			exch(a, i, j);
+//		}
+//		exch(a, lo, j);    return j;
+//	} 
 	
 	/**
 	 * Método que invierte el arreglo y todos los elementos que estaban al comienzo. 

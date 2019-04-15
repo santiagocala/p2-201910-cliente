@@ -23,8 +23,9 @@ public class Controller {
 	// Componente modelo (logica de la aplicacion)
 	private MovingViolationsManager model;
 	
+	// Comparadores para mÈtodos
 	private ComparatorXViolationCode comparadorCodigo;
-	
+	private ComparatorXCoordenadas comparadorCoordenadas;
 	private ComparatorXDesc comparadorDesc;
 	
 	private RedBlackBST<Integer, VOMovingViolations> arbolBalanceado;
@@ -152,7 +153,7 @@ public class Controller {
 				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
 				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
 				
-				controller.arregloDinamico.sort(comparadorDesc);
+				controller.arregloDinamico.mergeSort(comparadorDesc);
 				System.out.println("--------");
 				
 				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
@@ -355,7 +356,7 @@ public class Controller {
 	public MaxColaPrioridad<VOViolationCode> reqFuncional1B() {
 
 		//Ordena el arreglo con respecto al c√≥digo para que sea m√°s f√°cil
-		arregloDinamico.sort(comparadorCodigo);
+		arregloDinamico.mergeSort(comparadorCodigo);
 		
 		//Crea la cola
 		MaxColaPrioridad<VOViolationCode> cola = new MaxColaPrioridad<VOViolationCode>();
@@ -394,6 +395,17 @@ public class Controller {
 		}
 		
 		return cola; 
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void reqFuncional2B(InfraccionesLocalizacion pLocalizacion) {
+		 
+		//Ordena el arreglo para que quede ordenado por localizaciÛn geogr·fica. 
+		arregloDinamico.mergeSort(comparadorCoordenadas);
+		
 		
 	}
 	
