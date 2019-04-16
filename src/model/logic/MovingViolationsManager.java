@@ -242,7 +242,7 @@ public class MovingViolationsManager {
 	public InfraccionesLocalizacion consultarPorAddressId(int addressID)
 	{
 		// TODO completar
-		VOMovingViolations uno=null;
+		VOMovingViolations uno=arregloDinamico.darElemento(0);
 		Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
 		for(int i=0; i<arregloDinamico.darTamano();i++)
 		{
