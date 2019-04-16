@@ -238,10 +238,10 @@ public class Controller {
 
 				startTime = System.currentTimeMillis();
 				//TODO Completar para la invocacion del metodo 4C
-				//model.ordenarCodigosPorNumeroInfracciones()
+				Heap resp10=model.ordenarCodigosPorNumeroInfracciones();
 
 				//TODO Mostrar grafica a partir del resultado del metodo anterior
-				//view.printReq4C( ... )
+				view.printReq4C( resp10 );
 				endTime = System.currentTimeMillis();
 
 				duration = endTime - startTime;
