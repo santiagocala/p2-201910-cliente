@@ -21,12 +21,16 @@ public class MovingViolationsManager {
 	//TODO Definir atributos necesarios
 	private ArregloDinamico<VOMovingViolations>arregloDinamico;
 	private ComparatorXCoordenadas comparadorCoordenadas;
+	private ComparatorXFecha comparadorFecha;
 	/**
 	 * Metodo constructor
 	 */
 	public MovingViolationsManager()
 	{
 		//TODO inicializar los atributos
+		arregloDinamico=new ArregloDinamico<VOMovingViolations>(300000);
+		comparadorCoordenadas = new ComparatorXCoordenadas();
+		comparadorFecha = new ComparatorXFecha();
 	}
 
 	/**
@@ -128,7 +132,7 @@ public class MovingViolationsManager {
 					coords.cambiarY(arregloDinamico.darElemento(i+1).getYCoord());
 				}
 			}
-			
+
 		}
 
 		Coordenadas coordGoal = new Coordenadas(xCoord, yCoord);
@@ -144,10 +148,51 @@ public class MovingViolationsManager {
 	 * 		LocalDate fechaFinal: Fecha final del rango de b�squeda
 	 * @return Cola con objetos InfraccionesFecha
 	 */
-	public IQueue<InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDate fechaInicial, LocalDate fechaFinal)
+	public RedBlackBST<String,InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDateTime fechaInicial, LocalDateTime fechaFinal)
 	{
+		arregloDinamico.quickSort(comparadorFecha);
+
+		RedBlackBST<String,InfraccionesFecha> arbol = new RedBlackBST<String,InfraccionesFecha>();
+		Queue cola = new Queue<VOMovingViolations>();
+		LocalDateTime fecha= fechaInicial;
+		int i=0;
+		boolean limsup=false;
+		while( (i <arregloDinamico.darTamano())&&!limsup)
+		{
+			while(arregloDinamico.darElemento(i).getTicketIssueDate().compareTo(fechaInicial)<0)
+			{
+				i++;
+			}
+			if(arregloDinamico.darElemento(i).getTicketIssueDate().compareTo(fechaFinal)>0)
+			{
+				limsup=true;
+			}
+			else
+			{
+				VOMovingViolations actual= arregloDinamico.darElemento(i);
+				if(actual.getTicketIssueDate().compareTo(fecha)==0 ) 
+				{
+					cola.enqueue(actual);
+				}
+				else
+				{
+					InfraccionesFecha infrFecha= new InfraccionesFecha(cola,fecha);
+					arbol.put(fecha.toString(),infrFecha);
+					//Se reinicia la cola
+					cola = new Queue<VOMovingViolations>();
+					if(i+1 < arregloDinamico.darTamano()) 
+					{
+						fecha = arregloDinamico.darElemento(i+1).getTicketIssueDate();
+					}
+				}
+				i++;
+			}
+
+		}
+
 		// TODO completar
-		return null;		
+
+		return arbol;			
 	}
 
 	/**

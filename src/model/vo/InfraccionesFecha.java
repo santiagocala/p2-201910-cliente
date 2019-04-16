@@ -1,6 +1,7 @@
 package model.vo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import model.data_structures.IQueue;
 
@@ -17,13 +18,13 @@ public class InfraccionesFecha extends EstadisticaInfracciones {
 				+ porcentajeNoAccidentes + ",\n valorTotal=" + valorTotal + "]\n\n";
 	}
 	
-	private LocalDate fecha;
+	private LocalDateTime fecha;
 	/**
 	 * Instantiates a new infracciones fecha.
 	 * @param lista the lista
 	 */
 	
-	public InfraccionesFecha( IQueue<VOMovingViolations> lista, LocalDate pFecha )
+	public InfraccionesFecha( IQueue<VOMovingViolations> lista, LocalDateTime pFecha )
 	{
 		super(lista);
 		fecha = pFecha;
