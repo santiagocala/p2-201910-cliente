@@ -75,7 +75,22 @@ public class EstadisticaInfracciones {
 	}
 	public double calcularPorcentajeAccidentes()
 	{
-		double porcentaje=0.0;
+		int contador = 0;
+		int tuvoAccidente = 0;
+		double porcentaje = 0;
+		
+		for(VOMovingViolations mv : listaInfracciones){
+			
+			if(mv.getAccidentIndicator().toLowerCase().equals("yes")) {
+				tuvoAccidente ++;
+			}
+			
+			contador ++;
+		}
+		
+		porcentaje = (tuvoAccidente/contador)*100;
+		porcentajeAccidentes = porcentaje;
+		porcentajeNoAccidentes = 100 - porcentaje;
 		return porcentaje;
 	}
 	@Override
@@ -133,9 +148,24 @@ public class EstadisticaInfracciones {
 	 * @return the porcentaje no accidentes
 	 */
 	public double getPorcentajeNoAccidentes() {
-		//TODO Completar para que calcule el porcentaje de las infracciones del conjunto que NO sufrieron accidentes
-		//con respecto al total.
-		return porcentajeNoAccidentes;
+		
+		int contador = 0;
+		int tuvoAccidente = 0;
+		double porcentaje = 0;
+		
+		for(VOMovingViolations mv : listaInfracciones){
+			
+			if(mv.getAccidentIndicator().toLowerCase().equals("yes")) {
+				tuvoAccidente ++;
+			}
+			
+			contador ++;
+		}
+		
+		porcentaje = 100 - (tuvoAccidente/contador)*100;
+		porcentajeNoAccidentes = porcentaje;
+		porcentajeAccidentes = 100 - porcentaje;
+		return porcentaje;
 	}
 
 	/**

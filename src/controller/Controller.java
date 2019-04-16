@@ -214,8 +214,7 @@ public class Controller {
 
 				duration = endTime - startTime;
 				view.printMessage("Tiempo requerimiento 2C: " + duration + " milisegundos");
-				//TODO Mostrar resultado de tipo InfraccionesFranjaHorarioViolationCode
-				//view.printReq2C( ... )
+				controller.reqFuncional2C(horaInicial, horaFinal);
 				break;
 
 			case 9:
@@ -230,8 +229,7 @@ public class Controller {
 
 				duration = endTime - startTime;
 				view.printMessage("Tiempo requerimiento 3C: " + duration + " milisegundos");
-				//TODO Mostrar resultado de tipo Cola con InfraccionesLocalizacion
-				//view.printReq3C( ... )
+				
 				break;
 
 			case 10:
@@ -553,7 +551,7 @@ public class Controller {
 		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicón, encuentra la última, suma el total de sus multas y lo divide por la cantidad que hubo.
 		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
 
-			VOMovingViolations actual = arregloDinamico.darElemento(0);
+			VOMovingViolations actual = arregloDinamico.darElemento(i);
 			
 			if(actual.getTicketIssueDate().getHour() == franja.hora.getHour() && actual.getTicketIssueDate().toLocalDate() == franja.hora.toLocalDate()) {
 
@@ -578,6 +576,30 @@ public class Controller {
 		}
 		return cola;
 	}
+	
+	public void reqFuncional2C(LocalTime pFechaInicial, LocalTime pFechaFinal) {
+
+		//Ordena el arregloDin�mico principal por hora.
+		//arregloDinamico.quickSort(comparadorFecha);
+
+		//Escoje la primera infraccion del arreglo ya ordenado y saca la franja a la que pertenece. 
+		Queue<VOMovingViolations> fila = new Queue<VOMovingViolations>();
+		
+		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicón, encuentra la última, suma el total de sus multas y lo divide por la cantidad que hubo.
+		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
+
+			VOMovingViolations actual = arregloDinamico.darElemento(i);
+
+			if(actual.getTicketIssueDate().isAfter(pFechaInicial) && actual.getTicketIssueDate().isBefore(pFechaFinal) ) {
+				fila.enqueue(actual);
+			}
+		}
+		
+		EstadisticaInfracciones ei = new EstadisticaInfracciones(fila);
+		System.out.println(ei.toString());
+	}
+	
+	
 	
 	/**
 	 * Convertir fecha a un objeto LocalDate
