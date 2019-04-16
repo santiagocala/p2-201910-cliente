@@ -1,5 +1,6 @@
 package model.vo;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import model.data_structures.IQueue;
@@ -27,7 +28,7 @@ public class InfraccionesFranjaHorariaViolationCode extends InfraccionesFranjaHo
 	 * Instantiates a new object.
 	 *
 	 */
-	public InfraccionesFranjaHorariaViolationCode(LocalTime hInicial, LocalTime hFinal, IQueue<VOMovingViolations> lista, IQueue<InfraccionesViolationCode> pInfViolationCode) {		
+	public InfraccionesFranjaHorariaViolationCode(LocalDateTime hInicial, LocalDateTime hFinal, IQueue<VOMovingViolations> lista, IQueue<InfraccionesViolationCode> pInfViolationCode) {		
 		super(hInicial, hFinal, lista);
 		this.infViolationCode = pInfViolationCode;
 	}

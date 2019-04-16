@@ -69,7 +69,7 @@ public class Controller {
 				{
 					
 					controller.loadPorSemestre(numeroSemestre);
-					model.setArregloDinamico(arregloDinamico);
+					model.setArregloDinamico(controller.arregloDinamico);
 				}
 				catch(Exception e) {
 					
@@ -302,6 +302,10 @@ public class Controller {
 		
 	}
 
+	public ArregloDinamico<VOMovingViolations> darArregloDinamico()
+	{
+		return arregloDinamico;
+	}
 	/**
 	 * Lee la información de un archivo que le llega por parámetro y se encarga de meterlo al arreglo 
 	 * @param pArchivo

@@ -385,7 +385,10 @@ public class LinkedList<T extends Comparable<T>> {
      */
 	
 	public boolean deleteAtK( int iL) {
-		
+		if (first==null)
+		{
+			return false;
+		}
 		NodeList<T> pro = first;
 		
 		for( int i = 0; i <= size; i++)
