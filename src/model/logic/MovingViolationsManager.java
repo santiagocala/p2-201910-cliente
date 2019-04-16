@@ -306,7 +306,7 @@ public class MovingViolationsManager {
 			else
 			{
 				InfraccionesViolationCode infrCode= new InfraccionesViolationCode(actual.getViolationCode(),cola);
-				maxHeap.put(infrCode.getViolationCode(), infrCode);
+				maxHeap.agregar(infrCode);
 				//Se reinicia la cola
 				cola = new Queue<VOMovingViolations>();
 				if(i+1 < arregloDinamico.darTamano()) 
@@ -316,12 +316,7 @@ public class MovingViolationsManager {
 			}
 
 		}
-
-		Coordenadas coordGoal = new Coordenadas(xCoord, yCoord);
-		InfraccionesLocalizacion resp= tablaHash.get(coordGoal);
-		// TODO completar
-
-		return resp;
+		return maxHeap;
 	}
 
 
