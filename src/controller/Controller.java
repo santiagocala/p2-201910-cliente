@@ -421,7 +421,7 @@ public class Controller {
 	public MaxColaPrioridad<VOViolationCode> reqFuncional1B() {
 
 		//Ordena el arreglo con respecto al c√≥digo para que sea m√°s f√°cil
-		arregloDinamico.mergeSort(comparadorCodigo);
+		arregloDinamico.quickSort(comparadorCodigo);
 		
 		//Crea la cola
 		MaxColaPrioridad<VOViolationCode> cola = new MaxColaPrioridad<VOViolationCode>();
@@ -473,7 +473,7 @@ public class Controller {
 	public InfraccionesLocalizacion reqFuncional2B(double pCoordenadaX, double pCoordenadaY) {
 		 
 		//Ordena el arreglo para que quede ordenado por localizaciÛn geogr·fica. 
-		arregloDinamico.mergeSort(comparadorCoordenadas);
+		arregloDinamico.quickSort(comparadorCoordenadas);
 		
 		//Recorre el arreglo ordenado que ya est· agrupado por ubicaciÛn geogr·fica. 
 		RedBlackBST<Coordenadas,InfraccionesLocalizacion> arbolLocalizacion = new RedBlackBST<Coordenadas,InfraccionesLocalizacion>();
