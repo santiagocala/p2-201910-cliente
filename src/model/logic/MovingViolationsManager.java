@@ -22,6 +22,7 @@ public class MovingViolationsManager {
 	private ArregloDinamico<VOMovingViolations>arregloDinamico;
 	private ComparatorXCoordenadas comparadorCoordenadas;
 	private ComparatorXFecha comparadorFecha;
+	private ComparatorXViolationCode comparatorCode;
 	/**
 	 * Metodo constructor
 	 */
@@ -31,6 +32,7 @@ public class MovingViolationsManager {
 		arregloDinamico=new ArregloDinamico<VOMovingViolations>(300000);
 		comparadorCoordenadas = new ComparatorXCoordenadas();
 		comparadorFecha = new ComparatorXFecha();
+		comparatorCode = new ComparatorXViolationCode();
 	}
 
 	/**
@@ -249,7 +251,7 @@ public class MovingViolationsManager {
 			VOMovingViolations actual= arregloDinamico.darElemento(i);
 			if(actual.getAddressId()==addressID)
 			{
-				 uno= actual;
+				uno= actual;
 				cola.enqueue(actual);
 			}
 		}
@@ -282,17 +284,45 @@ public class MovingViolationsManager {
 		return null;		
 	}
 
-	//	/**
-	//	  * Requerimiento 4C: Obtener la  informaci�n  de  los c�digos (ViolationCode) ordenados por su numero de infracciones.
-	//	  * @return Contenedora de objetos InfraccionesViolationCode.
-	//	  // TODO Definir la estructura Contenedora
-	//	  */
-	//	public Contenedora<InfraccionesViolationCode> ordenarCodigosPorNumeroInfracciones()
-	//	{
-	//		// TODO completar
-	//		// TODO Definir la Estructura Contenedora
-	//		return null;		
-	//	}
+	/**
+	 * Requerimiento 4C: Obtener la  informaci�n  de  los c�digos (ViolationCode) ordenados por su numero de infracciones.
+	 * @return Contenedora de objetos InfraccionesViolationCode.
+		  // TODO Definir la estructura Contenedora
+	 */
+	public Heap ordenarCodigosPorNumeroInfracciones()
+	{
+		//<InfraccionesViolationCode> 
+		arregloDinamico.quickSort(comparatorCode);
+		Heap<InfraccionesViolationCode> maxHeap= new Heap<InfraccionesViolationCode>(20);
+		String code = arregloDinamico.darElemento(0).getViolationCode();
+		Queue cola = new Queue<VOMovingViolations>();
+		for(int i=0; i <arregloDinamico.darTamano();i++)
+		{
+			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			if(actual.getViolationCode().equals(code)) 
+			{
+				cola.enqueue(actual);
+			}
+			else
+			{
+				InfraccionesViolationCode infrCode= new InfraccionesViolationCode(actual.getViolationCode(),cola);
+				maxHeap.put(infrCode.getViolationCode(), infrCode);
+				//Se reinicia la cola
+				cola = new Queue<VOMovingViolations>();
+				if(i+1 < arregloDinamico.darTamano()) 
+				{
+					code =arregloDinamico.darElemento(i+1).getViolationCode();
+				}
+			}
+
+		}
+
+		Coordenadas coordGoal = new Coordenadas(xCoord, yCoord);
+		InfraccionesLocalizacion resp= tablaHash.get(coordGoal);
+		// TODO completar
+
+		return resp;
+	}
 
 
 }
