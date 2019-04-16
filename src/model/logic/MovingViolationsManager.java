@@ -242,7 +242,19 @@ public class MovingViolationsManager {
 	public InfraccionesLocalizacion consultarPorAddressId(int addressID)
 	{
 		// TODO completar
-		return null;		
+		VOMovingViolations uno=null;
+		Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
+		for(int i=0; i<arregloDinamico.darTamano();i++)
+		{
+			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			if(actual.getAddressId()==addressID)
+			{
+				 uno= actual;
+				cola.enqueue(actual);
+			}
+		}
+		InfraccionesLocalizacion resp= new InfraccionesLocalizacion(uno.getXCoord(), uno.getYCoord(),uno.getLocation(), uno.getAddressId(), uno.getStreetSegId(), cola);
+		return resp;		
 	}
 
 	/**
