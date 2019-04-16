@@ -8,21 +8,17 @@ public class InfraccionesFechaHora extends EstadisticaInfracciones implements Co
 
 	@Override
 	public String toString() {
-		return "InfraccionesFechaHora [fecha_hora_inicial=" + fecha_hora_inicial + ",\n fecha_hora_final="
-				+ fecha_hora_final + ",\n totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
+		return "InfraccionesFechaHora [fecha_hora_inicial=" + fecha_hora_inicial + ",\n totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
 				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
 				+ valorTotal + "]\n\n";
 	}
 
 	private LocalDateTime fecha_hora_inicial;
 	
-	private LocalDateTime fecha_hora_final;
 	
-	public InfraccionesFechaHora(LocalDateTime pFechaHoraIni, LocalDateTime pFechaHoraFin, IQueue<VOMovingViolations> lista) {
+	public InfraccionesFechaHora(LocalDateTime pFechaHoraIni, IQueue<VOMovingViolations> lista) {
 		super(lista);
-		// TODO Auto-generated constructor stub
 		fecha_hora_inicial = pFechaHoraIni; 
-		fecha_hora_final = pFechaHoraFin; 
 	}
 
 	@Override

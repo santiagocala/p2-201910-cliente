@@ -1,5 +1,6 @@
 package model.data_structures;
 
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -138,7 +139,7 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	
 	public void quickSort(Comparator<T> comparador) {
 		
-		//StdRandom.shuffle(elementos);
+		Collections.shuffle(elementos);
 		quickSort(elementos, 0, elementos.length - 1, comparador);
 	} 
 	private void quickSort(T[] a, int lo, int hi, Comparator<T> comparador) {
