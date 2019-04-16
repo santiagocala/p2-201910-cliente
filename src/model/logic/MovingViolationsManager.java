@@ -76,10 +76,10 @@ public class MovingViolationsManager {
 			int hora=fecha.getHour();
 			Queue cola = new Queue();
 			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(fecha, fecha, cola);
-			VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
+			/*VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
 			VioHour.setPorcentajeNoAccidentes(porcentajeNoAccidentes);
 			VioHour.setTotalInfracciones(totalInfracciones);
-			VioHour.setValorTotal(valorTotal);
+			VioHour.setValorTotal(valorTotal);*/
 			listaHoras[hora]=VioHour;
 			listaHoras[hora].agregarALista(actual);
 		}

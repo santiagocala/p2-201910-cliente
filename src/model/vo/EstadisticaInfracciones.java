@@ -60,7 +60,7 @@ public class EstadisticaInfracciones {
 	}
 	public void calcularDatos()
 	{
-		totalInfracciones = listaInfracciones.size();
+		totalInfracciones = 0;
 		while(!listaInfracciones.isEmpty())
 		{
 			VOMovingViolations actual=listaInfracciones.dequeue();
@@ -69,6 +69,7 @@ public class EstadisticaInfracciones {
 			{
 				porcentajeAccidentes++;
 			}
+			totalInfracciones++;
 		}
 		porcentajeAccidentes=porcentajeAccidentes/totalInfracciones*100;
 		porcentajeNoAccidentes=100-porcentajeAccidentes;
@@ -81,6 +82,7 @@ public class EstadisticaInfracciones {
 	@Override
 	public String toString() 
 	{
+		calcularDatos();
 		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
 				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
 				+ valorTotal + "]\n\n";
