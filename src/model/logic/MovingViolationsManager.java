@@ -76,10 +76,10 @@ public class MovingViolationsManager {
 			int hora=fecha.getHour();
 			Queue cola = new Queue();
 			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(fecha, fecha, cola);
-			VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
+			/*VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
 			VioHour.setPorcentajeNoAccidentes(porcentajeNoAccidentes);
 			VioHour.setTotalInfracciones(totalInfracciones);
-			VioHour.setValorTotal(valorTotal);
+			VioHour.setValorTotal(valorTotal);*/
 			listaHoras[hora]=VioHour;
 			listaHoras[hora].agregarALista(actual);
 		}
@@ -242,7 +242,19 @@ public class MovingViolationsManager {
 	public InfraccionesLocalizacion consultarPorAddressId(int addressID)
 	{
 		// TODO completar
-		return null;		
+		VOMovingViolations uno=arregloDinamico.darElemento(0);
+		Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
+		for(int i=0; i<arregloDinamico.darTamano();i++)
+		{
+			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			if(actual.getAddressId()==addressID)
+			{
+				 uno= actual;
+				cola.enqueue(actual);
+			}
+		}
+		InfraccionesLocalizacion resp= new InfraccionesLocalizacion(uno.getXCoord(), uno.getYCoord(),uno.getLocation(), uno.getAddressId(), uno.getStreetSegId(), cola);
+		return resp;		
 	}
 
 	/**

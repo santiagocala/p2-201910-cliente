@@ -15,6 +15,7 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones implement
 
 	@Override
 	public String toString() {
+		super.calcularDatos();
 		return "InfraccionesFranjaHoraria [hora_Inicial=" + hora_Inicial + ",\n hora_Final=" + hora_Final
 				+ ",\n totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes=" + porcentajeAccidentes
 				+ ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal=" + valorTotal + "]\n\n";
@@ -62,7 +63,13 @@ public class InfraccionesFranjaHoraria extends EstadisticaInfracciones implement
 	@Override
 	public int compareTo(InfraccionesFranjaHoraria that) {
 		// TODO Auto-generated method stub
+		
 		int resp=2;
+		if(this==null || that==null)
+		{
+			return resp;
+		}
+		
 		//Por numero de infracciones
 		if(this.totalInfracciones<that.totalInfracciones)
 		{

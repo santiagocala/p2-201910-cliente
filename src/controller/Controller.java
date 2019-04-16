@@ -186,7 +186,7 @@ public class Controller {
 
 				startTime = System.currentTimeMillis();
 				//TODO Completar para la invocaci�n del metodo 1C
-				//model.consultarPorAddressId(int addressID)
+				InfraccionesLocalizacion resp=model.consultarPorAddressId(addressID);
 
 				endTime = System.currentTimeMillis();
 
@@ -194,7 +194,7 @@ public class Controller {
 				view.printMessage("Tiempo requerimiento 1C: " + duration + " milisegundos");
 
 				//TODO Mostrar resultado de tipo InfraccionesLocalizacion 	
-				//view.printReq1C( ... )
+				System.out.println(resp.toString());
 				break;
 
 			case 8:
@@ -289,8 +289,8 @@ public class Controller {
 		}
 		else
 			throw new Exception("Cuatrimestre inválido");
-		
-		for(int i = 0; i < 6; i++) {
+		//Lo cambie para cargar solo 4 meses
+		for(int i = 0; i < 2; i++) {
 			
 			try {
 			
@@ -349,7 +349,7 @@ public class Controller {
 		// TODO: Cuidado
 		// Debido a que mi computador no cuenta con la memoria necesaria para hacer los procesos con todos los datos, le puse este límite
 		// Esto es con el fin de poder probar el programa y poder ver si está funcionando. 
-		arregloDinamico.cambiarTamano(200);
+		//arregloDinamico.cambiarTamano(200);
 		System.out.println("la cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
 		
 		br.close();
