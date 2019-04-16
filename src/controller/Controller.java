@@ -39,6 +39,10 @@ public class Controller {
 		view = new MovingViolationsManagerView();
 		model = new MovingViolationsManager();
 		arregloDinamico = new ArregloDinamico<VOMovingViolations>(3000);
+		comparadorCodigo = new ComparatorXViolationCode();
+		comparadorCoordenadas = new ComparatorXCoordenadas();
+		comparadorDesc = new ComparatorXDesc();
+		comparadorFecha = new ComparatorXFecha();
 	}
 	
 	/**
@@ -126,7 +130,7 @@ public class Controller {
 			case 4:
 				view.printMessage("1B. Consultar los N Tipos con mas infracciones. Ingrese el valor de N: ");
 				int numeroTipos = sc.nextInt();
-				MaxColaPrioridad cola = reqFuncional1B();
+				MaxColaPrioridad cola = controller.reqFuncional1B();
 
 				//TODO Completar para la invocaci�n del metodo 1B				
 				//model.rankingNViolationCodes(int N)
@@ -140,7 +144,8 @@ public class Controller {
 				xcoord = sc.nextDouble();
 				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
 				ycoord = sc.nextDouble();
-
+				
+				InfraccionesLocalizacion p = controller.reqFuncional2B(xcoord, ycoord);
 				//TODO Completar para la invocaci�n del metodo 2B
 				//model.consultarPorLocalizacionArbol(double xCoord, double yCoord)
 
@@ -150,17 +155,17 @@ public class Controller {
 
 			case 6:
 				
-//				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
-//				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
-//				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
-//				
-//				controller.arregloDinamico.mergeSort(comparadorDesc);
-//				System.out.println("--------");
-//				
-//				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
-//				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
-//				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
-//				
+				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
+				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
+				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
+				
+				controller.arregloDinamico.quickSort(comparadorDesc);
+				System.out.println("--------");
+				
+				System.out.println("el primer elemento tiene violation code : "+ controller.arregloDinamico.darElemento(1).getViolationCode());
+				System.out.println("el 45 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(45).getViolationCode());
+				System.out.println("el 108 elemento tiene violation code : "+ controller.arregloDinamico.darElemento(108).getViolationCode());
+				
 				
 //				view.printMessage("Ingrese la cantidad minima de dinero que deben acumular las infracciones en sus rangos de fecha  (Ej. 1234,56)");
 //				double cantidadMinima = sc.nextDouble();
@@ -346,7 +351,7 @@ public class Controller {
 		// TODO: Cuidado
 		// Debido a que mi computador no cuenta con la memoria necesaria para hacer los procesos con todos los datos, le puse este límite
 		// Esto es con el fin de poder probar el programa y poder ver si está funcionando. 
-		//arregloDinamico.cambiarTamano(200);
+		arregloDinamico.cambiarTamano(200);
 		System.out.println("la cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
 		
 		br.close();

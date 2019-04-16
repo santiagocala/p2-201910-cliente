@@ -151,6 +151,8 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	
 	public void quickSort(Comparator<T> comparador) {
 		
+		if(comparador == null)
+			System.out.println("el puto comparador es null");
 		
 		shuffle(elementos);
 		quickSort(elementos, 0, elementos.length - 1, comparador);
