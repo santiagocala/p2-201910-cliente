@@ -2,6 +2,7 @@ package model.data_structures;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * 2019-01-23
@@ -135,11 +136,23 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		}
 	} 
 	
-	 	
+	public T[] shuffle(T[] array){
+		Random rgen = new Random();  // Random number generator			
+
+		for (int i=0; i<array.length; i++) {
+			int randomPosition = rgen.nextInt(array.length);
+			T temp = array[i];
+			array[i] = array[randomPosition];
+			array[randomPosition] = temp;
+		}
+
+		return array;
+	}
 	
 	public void quickSort(Comparator<T> comparador) {
 		
-		Collections.shuffle(elementos);
+		
+		shuffle(elementos);
 		quickSort(elementos, 0, elementos.length - 1, comparador);
 	} 
 	private void quickSort(T[] a, int lo, int hi, Comparator<T> comparador) {

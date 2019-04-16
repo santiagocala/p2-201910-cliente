@@ -421,7 +421,7 @@ public class Controller {
 	public MaxColaPrioridad<VOViolationCode> reqFuncional1B() {
 
 		//Ordena el arreglo con respecto al cÃ³digo para que sea mÃ¡s fÃ¡cil
-		arregloDinamico.mergeSort(comparadorCodigo);
+		arregloDinamico.quickSort(comparadorCodigo);
 		
 		//Crea la cola
 		MaxColaPrioridad<VOViolationCode> cola = new MaxColaPrioridad<VOViolationCode>();
@@ -473,7 +473,7 @@ public class Controller {
 	public InfraccionesLocalizacion reqFuncional2B(double pCoordenadaX, double pCoordenadaY) {
 		 
 		//Ordena el arreglo para que quede ordenado por localización geográfica. 
-		arregloDinamico.mergeSort(comparadorCoordenadas);
+		arregloDinamico.quickSort(comparadorCoordenadas);
 		
 		//Recorre el arreglo ordenado que ya está agrupado por ubicación geográfica. 
 		RedBlackBST<Coordenadas,InfraccionesLocalizacion> arbolLocalizacion = new RedBlackBST<Coordenadas,InfraccionesLocalizacion>();
@@ -523,7 +523,13 @@ public class Controller {
 		return arbolLocalizacion.get(aBuscar);
 	}
 	
-	
+	/**
+	 * Método que se encarga de ordenar el arreglo de tal manera que pueda organizar la información por franjas y después meterlas a un árbol binario.
+	 * Después retorna una cola ordenada (Priorityheap) con todas las franjas que contengan un valor entre el rango dado por parámetro. 
+	 * @param pValorMinimo - valor inferior del rango de valores
+	 * @param pValorMaximo -  valor superior del rango de valores
+	 * @return Una cola de objetos tipo InfraccionesFechaHora que contiene la información de cada franja. 
+	 */
 	public MaxColaPrioridad<InfraccionesFechaHora> reqFuncional3B(int pValorMinimo, int pValorMaximo) {
 		
 		//Se crea la cola de prioridad donde se van a guardr las Infracciones Fecha-Hora que cumplen los criterios
@@ -563,8 +569,6 @@ public class Controller {
 				if(i+1 < arregloDinamico.darTamano()) {
 					franja = new FranjaFechaHora(actual.getTicketIssueDate().withMinute(0).withSecond(0));
 				}
-				
-
 			}
 		}
 		return cola;
