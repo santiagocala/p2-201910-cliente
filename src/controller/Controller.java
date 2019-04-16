@@ -186,7 +186,7 @@ public class Controller {
 
 				startTime = System.currentTimeMillis();
 				//TODO Completar para la invocaci�n del metodo 1C
-				//model.consultarPorAddressId(int addressID)
+				InfraccionesLocalizacion resp=model.consultarPorAddressId(addressID);
 
 				endTime = System.currentTimeMillis();
 
@@ -194,7 +194,7 @@ public class Controller {
 				view.printMessage("Tiempo requerimiento 1C: " + duration + " milisegundos");
 
 				//TODO Mostrar resultado de tipo InfraccionesLocalizacion 	
-				//view.printReq1C( ... )
+				System.out.println(resp.toString());
 				break;
 
 			case 8:
