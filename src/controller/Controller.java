@@ -523,7 +523,13 @@ public class Controller {
 		return arbolLocalizacion.get(aBuscar);
 	}
 	
-	
+	/**
+	 * Método que se encarga de ordenar el arreglo de tal manera que pueda organizar la información por franjas y después meterlas a un árbol binario.
+	 * Después retorna una cola ordenada (Priorityheap) con todas las franjas que contengan un valor entre el rango dado por parámetro. 
+	 * @param pValorMinimo - valor inferior del rango de valores
+	 * @param pValorMaximo -  valor superior del rango de valores
+	 * @return Una cola de objetos tipo InfraccionesFechaHora que contiene la información de cada franja. 
+	 */
 	public MaxColaPrioridad<InfraccionesFechaHora> reqFuncional3B(int pValorMinimo, int pValorMaximo) {
 		
 		//Se crea la cola de prioridad donde se van a guardr las Infracciones Fecha-Hora que cumplen los criterios
@@ -563,8 +569,6 @@ public class Controller {
 				if(i+1 < arregloDinamico.darTamano()) {
 					franja = new FranjaFechaHora(actual.getTicketIssueDate().withMinute(0).withSecond(0));
 				}
-				
-
 			}
 		}
 		return cola;
