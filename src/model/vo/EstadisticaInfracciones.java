@@ -50,14 +50,34 @@ public class EstadisticaInfracciones {
 	
 	public EstadisticaInfracciones(IQueue<VOMovingViolations> lista) {
 		this.listaInfracciones = lista;
-		totalInfracciones = listaInfracciones.size();
+		calcularDatos();
+		/*totalInfracciones = listaInfracciones.size();
 		
 		//TODO Hacer el calculo de porcentajeAccidentes, porcentajeNoAccidentes y valorTotal
-		porcentajeAccidentes = -50.0;   //TODO Calcular con base en la lista
-		porcentajeNoAccidentes = -50.0; //TODO Calcular con base en la lista
-		valorTotal = -100000.0;         //TODO Calcular con base en la lista
+		porcentajeAccidentes = calcularPorcentajeAccidentes();   //TODO Calcular con base en la lista
+		porcentajeNoAccidentes = 100-porcentajeAccidentes; //TODO Calcular con base en la lista
+		valorTotal = -100000.0;   */      //TODO Calcular con base en la lista
 	}
-	
+	public void calcularDatos()
+	{
+		totalInfracciones = listaInfracciones.size();
+		while(!listaInfracciones.isEmpty())
+		{
+			VOMovingViolations actual=listaInfracciones.dequeue();
+			valorTotal+=actual.getFineAmt();
+			if(actual.getAccidentIndicator().equals("Yes"))
+			{
+				porcentajeAccidentes++;
+			}
+		}
+		porcentajeAccidentes=porcentajeAccidentes/totalInfracciones*100;
+		porcentajeNoAccidentes=100-porcentajeAccidentes;
+	}
+	public double calcularPorcentajeAccidentes()
+	{
+		double porcentaje=0.0;
+		return porcentaje;
+	}
 	@Override
 	public String toString() 
 	{

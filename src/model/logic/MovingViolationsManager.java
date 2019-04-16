@@ -62,12 +62,25 @@ public class MovingViolationsManager {
 		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
 		for(int i=0; i <arregloDinamico.darTamano();i++)
 		{
+			double porcentajeAccidentes=0;
+			double porcentajeNoAccidentes=0;
+			double valorTotal=0;
+			int totalInfracciones=arregloDinamico.darTamano();
 			VOMovingViolations actual= arregloDinamico.darElemento(i);
+			if(actual.getAccidentIndicator().equals("Yes"))
+			{
+				porcentajeAccidentes++;
+			}
 			//Revisar lo de la hora y el 24
 			LocalDateTime fecha=actual.getTicketIssueDate();
 			int hora=fecha.getHour();
 			Queue cola = new Queue();
 			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(fecha, fecha, cola);
+			VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
+			VioHour.setPorcentajeNoAccidentes(porcentajeNoAccidentes);
+			VioHour.setTotalInfracciones(totalInfracciones);
+			VioHour.setValorTotal(valorTotal);
+			listaHoras[hora]=VioHour;
 			listaHoras[hora].agregarALista(actual);
 		}
 		for(int j=0; j<listaHoras.length;j++)
