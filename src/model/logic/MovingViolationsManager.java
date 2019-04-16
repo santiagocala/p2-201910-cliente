@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import model.data_structures.ArregloDinamico;
+import model.data_structures.HeapPriorityQueue;
 import model.data_structures.IQueue;
 import model.data_structures.MaxColaPrioridad;
 import model.data_structures.Queue;
@@ -17,6 +18,8 @@ import model.vo.InfraccionesFranjaHorariaViolationCode;
 import model.vo.InfraccionesLocalizacion;
 import model.vo.InfraccionesViolationCode;
 import model.vo.VOMovingViolations;
+import model.data_structures.ComparatorXHora;
+import model.data_structures.Heap;
 
 public class MovingViolationsManager {
 
@@ -54,7 +57,7 @@ public class MovingViolationsManager {
 	public IQueue<InfraccionesFranjaHoraria> rankingNFranjas(int N)
 	{
 		// TODO completar
-		MaxColaPrioridad maxHeap = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
+		Heap<InfraccionesFranjaHoraria> maxHeap = new Heap<InfraccionesFranjaHoraria>(24);
 		Queue resp = new Queue();
 		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
 		for(int i=0; i <arregloDinamico.darTamano();i++)
@@ -70,6 +73,7 @@ public class MovingViolationsManager {
 		for(int j=0; j<listaHoras.length;j++)
 		{
 			maxHeap.agregar(listaHoras[j]);
+			
 		}
 		for(int i=0; i<N;i++)
 		{
