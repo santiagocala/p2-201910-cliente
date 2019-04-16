@@ -480,12 +480,13 @@ public class Controller {
 		
 		Coordenadas coords = new Coordenadas(arregloDinamico.darElemento(0).getXCoord(), arregloDinamico.darElemento(0).getYCoord());
 		int cantidad = 0;
+		Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
 		
 		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicÃ³n, encuentra la Ãºltima, suma el total de sus multas y lo divide por la cantidad que hubo.
 		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
 			
 			VOMovingViolations actual = arregloDinamico.darElemento(i);
-			Queue<VOMovingViolations> cola = new Queue<VOMovingViolations>();
+			
 			
 			if(actual.getXCoord() == coords.getX() && actual.getYCoord() == coords.getY()) {
 				
@@ -500,6 +501,7 @@ public class Controller {
 				arbolLocalizacion.put(coords, new InfraccionesLocalizacion(coords.getX(), coords.getY(), actual.getLocation(), actual.getAddressId(), actual.getStreetSegId(), cola));
 				System.out.println("(" + coords.getX() + ", " + coords.getY() + ")  con: "  + cantidad + " infracciones" );
 				cantidad = 0;
+				cola = new Queue<VOMovingViolations>();
 				
 				//Se cambian los valores de x y y del comparador para que lea la siguiente ubicación geográfica. 
 				if(i+1 < arregloDinamico.darTamano()) {
@@ -531,10 +533,40 @@ public class Controller {
 		//Ordena el arregloDinámico principal por hora.
 		arregloDinamico.quickSort(comparadorFecha);
 		
+		//Escoje la primera infraccion del arreglo ya ordenado y saca la franja a la que pertenece. 
 		
+		int cantidad = 0;
+		FranjaFechaHora franja = new FranjaFechaHora(arregloDinamico.darElemento(0).getTicketIssueDate().withMinute(0).withSecond(0));
+		Queue<VOMovingViolations> fila = new Queue<VOMovingViolations>();
 		
-		
-		
+		//Recorre el arreglo de todas las infracciones ya ordenadas y para tipo de infracicÃ³n, encuentra la Ãºltima, suma el total de sus multas y lo divide por la cantidad que hubo.
+		for(int i = 0; i < arregloDinamico.darTamano(); i++) {
+
+			VOMovingViolations actual = arregloDinamico.darElemento(0);
+			
+			if(actual.getTicketIssueDate().getHour() == franja.hora.getHour() && actual.getTicketIssueDate().toLocalDate() == franja.hora.toLocalDate()) {
+
+				cantidad ++;
+				fila.enqueue(actual);
+			}
+
+			//Apenas encuentra uno diferente al que venÃ­a sucediendo, obtiene el total de sus multas, saca un promedio y crea una instancia de la clase VOViolationCode
+			//Esta instancia posteriormente agraga a la cola y se lee el siguiente elemento
+			else {
+
+				InfraccionesFechaHora ifh = new InfraccionesFechaHora(franja.hora, fila);
+				arbolFranjas.put(franja, ifh);
+				cantidad = 0;
+				fila = new Queue<VOMovingViolations>();
+
+				//Se cambian los valores de x y y del comparador para que lea la siguiente ubicación geográfica. 
+				if(i+1 < arregloDinamico.darTamano()) {
+					franja = new FranjaFechaHora(actual.getTicketIssueDate().withMinute(0).withSecond(0));
+				}
+				
+
+			}
+		}
 		return cola;
 	}
 	
