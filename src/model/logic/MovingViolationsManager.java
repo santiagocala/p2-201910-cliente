@@ -1,6 +1,7 @@
 package model.logic;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import model.data_structures.ArregloDinamico;
@@ -60,7 +61,11 @@ public class MovingViolationsManager {
 		{
 			VOMovingViolations actual= arregloDinamico.darElemento(i);
 			//Revisar lo de la hora y el 24
-			listaHoras[actual.getTicketIssueDate().getHour()].agregarALista(actual);
+			LocalDateTime fecha=actual.getTicketIssueDate();
+			int hora=fecha.getHour();
+			Queue cola = new Queue();
+			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(fecha, fecha, cola);
+			listaHoras[hora].agregarALista(actual);
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
