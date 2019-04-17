@@ -200,11 +200,11 @@ public class Controller {
 			case 8:
 				view.printMessage("Ingrese la hora inicial del rango. Formato HH:MM:SS (ej. 09:30:00)");
 				String horaInicialStr = sc.next();
-				LocalTime horaInicial = ManejoFechaHora.convertirHora_LT(horaInicialStr);
+				LocalDateTime horaInicial = ManejoFechaHora.convertirFecha_Hora_LDT(horaInicialStr);
 
 				view.printMessage("Ingrese la hora final del rango. Formato HH:MM:SS (ej. 16:00:00)");
 				String horaFinalStr = sc.next();
-				LocalTime horaFinal = ManejoFechaHora.convertirHora_LT(horaFinalStr);
+				LocalDateTime horaFinal = ManejoFechaHora.convertirFecha_Hora_LDT(horaFinalStr);
 
 				startTime = System.currentTimeMillis();
 				//TODO Completar para la invocacion del metodo 2C
@@ -577,7 +577,7 @@ public class Controller {
 		return cola;
 	}
 	
-	public void reqFuncional2C(LocalTime pFechaInicial, LocalTime pFechaFinal) {
+	public void reqFuncional2C(LocalDateTime pFechaInicial, LocalDateTime pFechaFinal) {
 
 		//Ordena el arregloDinámico principal por hora.
 		//arregloDinamico.quickSort(comparadorFecha);
@@ -590,7 +590,7 @@ public class Controller {
 
 			VOMovingViolations actual = arregloDinamico.darElemento(i);
 
-			if(actual.getTicketIssueDate().isAfter(pFechaInicial) && actual.getTicketIssueDate().isBefore(pFechaFinal) ) {
+			if(actual.getTicketIssueDate().compareTo(pFechaInicial)<0 && actual.getTicketIssueDate().compareTo(pFechaFinal)>0 ) {
 				fila.enqueue(actual);
 			}
 		}
