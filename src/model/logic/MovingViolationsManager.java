@@ -66,10 +66,15 @@ public class MovingViolationsManager {
 		for(int i=0; i <arregloDinamico.darTamano();i++)
 		{
 			VOMovingViolations actual= arregloDinamico.darElemento(i);
-	
+			
 			//Revisar lo de la hora y el 24
 			LocalDateTime fecha=actual.getTicketIssueDate();
 			int hora=fecha.getHour();
+			
+			if(i<24 && listaHoras[i]==null)
+			{
+				listaHoras[i]=cola;
+			}
 			
 			listaHoras[hora]=listaHoras[hora]==null?cola:listaHoras[hora];
 			
@@ -82,7 +87,7 @@ public class MovingViolationsManager {
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
-			VOMovingViolations act= listaHoras[j]==null?null:(VOMovingViolations)listaHoras[j].peek();
+			VOMovingViolations act= listaHoras[j].size()==0?null:(VOMovingViolations)listaHoras[j].peek();
 			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(act==null?null:act.getTicketIssueDate(), act==null?null:act.getTicketIssueDate(), listaHoras[j]);
 			maxHeap.agregar(VioHour);
 

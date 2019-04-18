@@ -298,7 +298,7 @@ public class Controller {
 		else
 			throw new Exception("Cuatrimestre inválido");
 		//Lo cambie para cargar solo 1 mes
-		for(int i = 0; i < 1; i++) {
+		for(int i = 0; i < 5; i++) {
 			
 			try 
 			{			
@@ -332,7 +332,7 @@ public class Controller {
 		br.readLine();
 		String linea = br.readLine();
 		
-		while(linea != null && numCargados<8) {
+		while(linea != null /*&& numCargados<26*/) {
 			
 			String arreglo[] = linea.split(",");
 			int id = Integer.parseInt(arreglo[0]);

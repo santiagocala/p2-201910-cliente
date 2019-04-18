@@ -15,46 +15,46 @@ public class EstadisticaInfracciones {
 	/**	
 	 * Numero total de infraciones del conjunto
 	 */
-	
+
 	protected int totalInfracciones;
-	
+
 	/**
 	 * Porcentaje de las infracciones con accidentes con respecto al total
 	 */
-	
+
 	protected double porcentajeAccidentes;
-	
+
 	/**
 	 * Porcentaje de las infracciones sin accidentes con respecto al total
 	 */
-	
+
 	protected double porcentajeNoAccidentes; 
-	
+
 	/**
 	 * Valor total de las infracciones que se debe pagar.
 	 */
-	
+
 	protected double valorTotal;	
-	
+
 	/**
 	 * Lista con las infracciones que agrupa el conjunto
 	 */
-	
+
 	protected IQueue<VOMovingViolations> listaInfracciones;
-	
-	
+
+
 	/**
 	 * Crea un nuevo conjunto con las infracciones
 	 * @param listaInfracciones - Lista con las infracciones que cumplen el criterio de agrupamiento
 	 */
-	
+
 	public EstadisticaInfracciones(IQueue<VOMovingViolations> lista) {
 		this.listaInfracciones = lista;
 		valorTotal=0;
 		totalInfracciones = 0;
 		calcularDatos();
 		/*totalInfracciones = listaInfracciones.size();
-		
+
 		//TODO Hacer el calculo de porcentajeAccidentes, porcentajeNoAccidentes y valorTotal
 		porcentajeAccidentes = calcularPorcentajeAccidentes();   //TODO Calcular con base en la lista
 		porcentajeNoAccidentes = 100-porcentajeAccidentes; //TODO Calcular con base en la lista
@@ -79,26 +79,29 @@ public class EstadisticaInfracciones {
 				numNoAccidentes++;
 				totalInfracciones++;
 			}
-			
+
 		}
-		porcentajeAccidentes=numAccidentes/totalInfracciones*100;
-		porcentajeNoAccidentes=numNoAccidentes/totalInfracciones*100;
+		if(totalInfracciones!=0)
+		{
+			porcentajeAccidentes=numAccidentes/totalInfracciones*100;
+			porcentajeNoAccidentes=numNoAccidentes/totalInfracciones*100;
+		}
 	}
 	public double calcularPorcentajeAccidentes()
 	{
 		int contador = 0;
 		int tuvoAccidente = 0;
 		double porcentaje = 0;
-		
+
 		for(VOMovingViolations mv : listaInfracciones){
-			
+
 			if(mv.getAccidentIndicator().toLowerCase().equals("yes")) {
 				tuvoAccidente ++;
 			}
-			
+
 			contador ++;
 		}
-		
+
 		porcentaje = (tuvoAccidente/contador)*100;
 		porcentajeAccidentes = porcentaje;
 		porcentajeNoAccidentes = 100 - porcentaje;
@@ -109,13 +112,13 @@ public class EstadisticaInfracciones {
 	{
 		calcularDatos();
 		return "EstadisticaInfracciones [totalInfracciones=" + totalInfracciones + ",\n porcentajeAccidentes="
-				+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
-				+ valorTotal + "]\n\n";
+		+ porcentajeAccidentes + ",\n porcentajeNoAccidentes=" + porcentajeNoAccidentes + ",\n valorTotal="
+		+ valorTotal + "]\n\n";
 	}
 	//=========================================================
 	//Metodos Getters and Setters
 	//=========================================================
-	
+
 
 	public void setTotalInfracciones(int totalInfracciones) {
 		this.totalInfracciones = totalInfracciones;
@@ -136,20 +139,33 @@ public class EstadisticaInfracciones {
 	 * Gets the total infracciones.
 	 * @return the total infracciones
 	 */
-	
+
 	public int getTotalInfracciones() {
 		return totalInfracciones;
 	}	
-	
-	
+
+
 	/**
 	 * Gets the porcentaje accidentes.	 *
 	 * @return the porcentaje accidentes
 	 */
-	
+
 	public double getPorcentajeAccidentes() {
 		//TODO Completar para que calcule el porcentaje de las infracciones del conjunto que sufrieron accidentes
 		//con respecto al total.
+		int contador = 0;
+		int tuvoAccidente = 0;
+		double porcentaje = 0;
+
+		for(VOMovingViolations mv : listaInfracciones){
+
+			if(mv.getAccidentIndicator().toLowerCase().equals("yes")) {
+				tuvoAccidente ++;
+			}
+
+			contador ++;
+		}
+
 		return porcentajeAccidentes;
 	}	
 
@@ -160,23 +176,22 @@ public class EstadisticaInfracciones {
 	 * @return the porcentaje no accidentes
 	 */
 	public double getPorcentajeNoAccidentes() {
-		
+
 		int contador = 0;
-		int tuvoAccidente = 0;
+		int noAccidente = 0;
 		double porcentaje = 0;
-		
+
 		for(VOMovingViolations mv : listaInfracciones){
-			
-			if(mv.getAccidentIndicator().toLowerCase().equals("yes")) {
-				tuvoAccidente ++;
+
+			if(mv.getAccidentIndicator().toLowerCase().equals("no")) {
+				noAccidente ++;
 			}
-			
+
 			contador ++;
 		}
-		
-		porcentaje = 100 - (tuvoAccidente/contador)*100;
-		porcentajeNoAccidentes = porcentaje;
-		porcentajeAccidentes = 100 - porcentaje;
+
+		porcentaje = 100 - (noAccidente/contador)*100;
+
 		return porcentaje;
 	}
 
@@ -204,7 +219,7 @@ public class EstadisticaInfracciones {
 	 *
 	 * @param listaInfracciones the new lista infracciones
 	 */
-	
+
 	public void setListaInfracciones(IQueue<VOMovingViolations> listaInfracciones) {
 		this.listaInfracciones = listaInfracciones;
 	}
