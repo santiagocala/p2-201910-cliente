@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -107,9 +108,11 @@ public class Controller {
 
 			case 2:
 				view.printMessage("Ingrese la coordenada en X de la localizacion geografica (Ej. 1234,56): ");
-				double xcoord = sc.nextDouble();
+				String x=sc.next();
+				double xcoord = Double.parseDouble(x);
 				view.printMessage("Ingrese la coordenada en Y de la localizacion geografica (Ej. 5678,23): ");
-				double ycoord = sc.nextDouble();
+				String y=sc.next();
+				double ycoord = Double.parseDouble(y);
 
 				//TODO Completar para la invocaci�n del metodo 2A
 				InfraccionesLocalizacion resp2=model.consultarPorLocalizacionHash(xcoord, ycoord);
@@ -119,13 +122,13 @@ public class Controller {
 				break;
 
 			case 3:
-				view.printMessage("Ingrese la fecha inicial del rango. Formato a�o-mes-dia (ej. 2008-06-21)");
+				view.printMessage("Ingrese la fecha inicial del rango. (Ej : 2018-01-26T23:35:00.000Z )");
 				String fechaInicialStr = sc.next();
-				LocalDateTime fechaInicial = controller.convertirFecha_Hora_LDT(fechaInicialStr);
+				LocalDateTime fechaInicial = convertirFecha_Hora_LDT(fechaInicialStr);
 
-				view.printMessage("Ingrese la fecha final del rango. Formato a�o-mes-dia (ej. 2008-06-30)");
+				view.printMessage("Ingrese la fecha final del rango. (Ej : 2018-01-26T23:35:00.000Z )");
 				String fechaFinalStr = sc.next();
-				LocalDateTime fechaFinal = controller.convertirFecha_Hora_LDT(fechaInicialStr);
+				LocalDateTime fechaFinal = convertirFecha_Hora_LDT(fechaInicialStr);
 
 				//TODO Completar para la invocacion del metodo 3A
 				model.consultarInfraccionesPorRangoFechas(fechaInicial, fechaFinal);

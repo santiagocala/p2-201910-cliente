@@ -154,7 +154,7 @@ public class MovingViolationsManager {
 	 */
 	public RedBlackBST<String,InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDateTime fechaInicial, LocalDateTime fechaFinal)
 	{
-		arregloDinamico.quickSort(comparadorFecha);
+		arregloDinamico.heapSort(arregloDinamico, comparadorFecha);
 
 		RedBlackBST<String,InfraccionesFecha> arbol = new RedBlackBST<String,InfraccionesFecha>();
 		Queue cola = new Queue<VOMovingViolations>();
@@ -181,6 +181,7 @@ public class MovingViolationsManager {
 				else
 				{
 					InfraccionesFecha infrFecha= new InfraccionesFecha(cola,fecha);
+					System.out.println(infrFecha.toString());
 					arbol.put(fecha.toString(),infrFecha);
 					//Se reinicia la cola
 					cola = new Queue<VOMovingViolations>();
@@ -195,7 +196,7 @@ public class MovingViolationsManager {
 		}
 
 		// TODO completar
-
+		System.out.println("El tamaño del arbol es: "+arbol.size());
 		return arbol;			
 	}
 
