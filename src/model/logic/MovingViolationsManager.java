@@ -295,7 +295,7 @@ public class MovingViolationsManager {
 	public Heap ordenarCodigosPorNumeroInfracciones()
 	{
 		//<InfraccionesViolationCode> 
-		arregloDinamico.quickSort(comparatorCode);
+		arregloDinamico.heapSort(arregloDinamico, comparatorCode);
 		Heap<InfraccionesViolationCode> maxHeap= new Heap<InfraccionesViolationCode>(20);
 		String code = arregloDinamico.darElemento(0).getViolationCode();
 		Queue cola = new Queue<VOMovingViolations>();
