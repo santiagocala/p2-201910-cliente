@@ -75,13 +75,12 @@ public class Controller {
 				int numeroSemestre = sc.nextInt();
 				
 				try 
-				{
-					
+				{					
 					controller.loadPorSemestre(numeroSemestre);
 					model.setArregloDinamico(controller.arregloDinamico);
 				}
-				catch(Exception e) {
-					
+				catch(Exception e)
+				{
 					System.out.println(e.getMessage());
 				}
 				System.out.println("");
@@ -113,10 +112,10 @@ public class Controller {
 				double ycoord = sc.nextDouble();
 
 				//TODO Completar para la invocaci�n del metodo 2A
-				//model.consultarPorLocalizacionHash(double xCoord, double yCoord)
+				InfraccionesLocalizacion resp2=model.consultarPorLocalizacionHash(xcoord, ycoord);
 
 				//TODO Mostrar resultado de tipo InfraccionesLocalizacion 
-				//view.printReq2A( ... )
+				view.printReq2A(resp2);
 				break;
 
 			case 3:
@@ -314,10 +313,6 @@ public class Controller {
 		
 	}
 
-	public ArregloDinamico<VOMovingViolations> darArregloDinamico()
-	{
-		return arregloDinamico;
-	}
 	/**
 	 * Lee la información de un archivo que le llega por parámetro y se encarga de meterlo al arreglo 
 	 * @param pArchivo
@@ -372,6 +367,15 @@ public class Controller {
 		
 		br.close();
 		return numCargados;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArregloDinamico<VOMovingViolations> darArregloDinamico()
+	{
+		return arregloDinamico;
 	}
 	
 	/**

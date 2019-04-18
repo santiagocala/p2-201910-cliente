@@ -111,8 +111,9 @@ public class MovingViolationsManager {
 	 */
 	public InfraccionesLocalizacion consultarPorLocalizacionHash(double xCoord, double yCoord)
 	{
+		//VOMovingViolations[] arregloMoving = (VOMovingViolations[])arregloDinamico.darElementos();
 		//Ordena el arreglo para que quede ordenado por localización geográfica. 
-		arregloDinamico.quickSort(comparadorCoordenadas);
+		arregloDinamico.heapSort(arregloDinamico, comparadorCoordenadas);
 		Coordenadas coords = new Coordenadas(arregloDinamico.darElemento(0).getXCoord(), arregloDinamico.darElemento(0).getYCoord());
 		TablaHashSC<Coordenadas, InfraccionesLocalizacion>tablaHash = new TablaHashSC<Coordenadas, InfraccionesLocalizacion>();
 		Queue cola = new Queue<VOMovingViolations>();

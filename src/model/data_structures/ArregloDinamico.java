@@ -33,7 +33,7 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	@SuppressWarnings("unchecked")
 	public ArregloDinamico( int max )
 	{
-		elementos = (T[]) new Object[max];
+		elementos = (T[]) new Comparable[max];
 		tamanoMax = max;
 		tamanoAct = 0;
 	}
@@ -45,7 +45,7 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		{  // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
 			T[ ] copia = elementos;
-			elementos = (T[]) new Object[tamanoMax];
+			elementos = (T[]) new Comparable[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
 				elementos[i] = copia[i];
@@ -75,6 +75,10 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		}
 		return respuesta;
 	}
+	 public T[] darElementos()
+	 {
+		 return elementos;
+	 }
 
 	@Override
 	public T buscar(T dato, Comparator<T> comparador) {
@@ -177,6 +181,50 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 		exch(a, lo, j);    return j;
 	} 
 	
+	public void heapify(ArregloDinamico<T>arr, int n, int i, Comparator<T> comparador) 
+	{ 
+	    int largest = i; // Initialize largest as root 
+	    int l = 2*i + 1; // left = 2*i + 1 
+	    int r = 2*i + 2; // right = 2*i + 2 
+	  
+	    // If left child is larger than root 
+	    if (l<n && comparador.compare(arr.darElemento(l), arr.darElemento(largest))>0) 
+	        largest = l; 
+	  
+	    // If right child is larger than largest so far 
+	    if (r < n &&  comparador.compare(arr.darElemento(r),arr.darElemento(largest))>0) 
+	        largest = r; 
+	  
+	    // If largest is not root 
+	    if (largest != i) 
+	    { 
+	        swap(arr.darElemento(i), arr.darElemento(largest)); 
+	  
+	        // Recursively heapify the affected sub-tree 
+	        heapify(arr, n, largest, comparador); 
+	    } 
+	} 
+	  
+	// main function to do heap sort 
+	public void heapSort(ArregloDinamico<T> arr, Comparator<T> comparador) 
+	{ 
+		
+		int n=arr.darTamano();
+	    // Build heap (rearrange array) 
+	    for (int i = n / 2 - 1; i >= 0; i--) 
+	        heapify(arr, n, i, comparador); 
+	  
+	    // One by one extract an element from heap 
+	    for (int i=n-1; i>=0; i--) 
+	    { 
+	        // Move current root to end 
+	    	swap(arr.darElemento(0), arr.darElemento(i)); 
+	  
+	        // call max heapify on the reduced heap 
+	        heapify(arr, i, 0, comparador); 
+	    } 
+	} 
+	
 	/**
 	 * MÃ©todo que invierte el arreglo y todos los elementos que estaban al comienzo. 
 	 */
@@ -202,11 +250,23 @@ public class ArregloDinamico<T> implements IArregloDinamico<T> {
 	 * @param i La primera posición que se quiere tener en cuenta
 	 * @param j La segunda posición que se quiere tener en cuenta
 	 */
-	private void exch(T[] a, int i, int j) {
+	private void swap( T i, T j) {
 		
-		T temporal = elementos[i];
-		elementos[i] = elementos[j];
-		elementos[j] = temporal;
+		T temporal = i;
+		i = j;
+		j = temporal;
+	}
+	/**
+	 * Intercambia dos elementos dentro de un arreglo dado por parámetro
+	 * @param a El arreglo que tiene dos posiciones que se quieren intercambiar
+	 * @param i La primera posición que se quiere tener en cuenta
+	 * @param j La segunda posición que se quiere tener en cuenta
+	 */
+	private void exch(T[]a, int i, int j) {
+		
+		T temporal = a[i];
+		a[i] = a[j];
+		a[j] = temporal;
 	}
 
 }
