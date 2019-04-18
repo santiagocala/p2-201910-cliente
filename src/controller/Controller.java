@@ -297,16 +297,17 @@ public class Controller {
 		}
 		else
 			throw new Exception("Cuatrimestre inválido");
-		//Lo cambie para cargar solo 4 meses
-		for(int i = 0; i < 2; i++) {
+		//Lo cambie para cargar solo 1 mes
+		for(int i = 0; i < 1; i++) {
 			
-			try {
-			
+			try 
+			{			
 				File f = new File(rutai + meses[i] + rutaf);
 				loadMovingViolations(f);
 			}
-			catch(Exception e) {
-				
+			
+			catch(Exception e) 
+			{
 				throw e;
 			}
 		}
@@ -331,7 +332,7 @@ public class Controller {
 		br.readLine();
 		String linea = br.readLine();
 		
-		while(linea != null) {
+		while(linea != null && numCargados<8) {
 			
 			String arreglo[] = linea.split(",");
 			int id = Integer.parseInt(arreglo[0]);

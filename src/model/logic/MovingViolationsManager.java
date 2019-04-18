@@ -82,7 +82,8 @@ public class MovingViolationsManager {
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
-			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(((VOMovingViolations) listaHoras[j].peek()).getTicketIssueDate(), ((VOMovingViolations) listaHoras[j].peek()).getTicketIssueDate(), listaHoras[j]);
+			VOMovingViolations act= listaHoras[j]==null?null:(VOMovingViolations)listaHoras[j].peek();
+			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(act==null?null:act.getTicketIssueDate(), act==null?null:act.getTicketIssueDate(), listaHoras[j]);
 			maxHeap.agregar(VioHour);
 
 		}
