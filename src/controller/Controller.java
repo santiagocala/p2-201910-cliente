@@ -28,7 +28,7 @@ public class Controller {
 	private ComparatorXCoordenadas comparadorCoordenadas;
 	private ComparatorXDesc comparadorDesc;
 	private ComparatorXFecha comparadorFecha;
-	
+	public static Double Xmin, Ymin, Xmax, Ymax;
 	private ArregloDinamico<VOMovingViolations> arregloDinamico;
 
 	/**
@@ -43,6 +43,11 @@ public class Controller {
 		comparadorCoordenadas = new ComparatorXCoordenadas();
 		comparadorDesc = new ComparatorXDesc();
 		comparadorFecha = new ComparatorXFecha();
+		Xmin=393185.8;
+		Ymin=138316.9;
+
+		Xmax=0.0;
+		Ymax=0.0;
 	}
 	
 	/**
@@ -79,6 +84,9 @@ public class Controller {
 					
 					System.out.println(e.getMessage());
 				}
+				System.out.println("");
+				System.out.println("El total de infracciones del semestre fue: "+controller.darArregloDinamico().darTamano());
+				System.out.println("La zona geográfica Minimax es: ("+Xmin+","+Ymin+") y ("+Xmax+","+Ymax+")");
 				//EstadisticasCargaInfracciones resumenCarga = model.loadMovingViolations(semestre);
 
 				//TODO Mostrar resultado de tipo EstadisticasCargaInfracciones con: 
@@ -314,8 +322,10 @@ public class Controller {
 	 * @param pArchivo
 	 * @throws Exception
 	 */
-	public void loadMovingViolations(File pArchivo) throws Exception {
-		
+	public int loadMovingViolations(File pArchivo) throws Exception {
+		System.out.println("");
+		System.out.println("Se está cargando: "+pArchivo);
+		int numCargados=0;
 		FileReader lector = new FileReader(pArchivo);
 		BufferedReader br = new BufferedReader(lector);
 		br.readLine();
@@ -331,6 +341,12 @@ public class Controller {
 			int fineamt = convertirInt(arreglo[8]);
 			int pagado = convertirInt(arreglo[9]);
 			int penalty = convertirInt(arreglo[10]);
+			//Rectangulo Min y Max
+			if(xcoord>Xmax){Xmax=xcoord;/*if(i<20){System.out.println("xmax");i++;}*/}
+			if(ycoord>Ymax){Ymax=ycoord;/*if(j<20){System.out.println("ymax");j++;}*/}
+			if(xcoord<Xmin){Xmin=xcoord;/*if(k<20){System.out.println("xmin");k++;}*/}
+			if(ycoord<Ymin){Ymin=ycoord;/*if(l<20){System.out.println("ymin");l++;}*/}
+			
 			
 			LocalDateTime fechaHora = convertirFecha_Hora_LDT(arreglo[13]);
 			
@@ -340,7 +356,7 @@ public class Controller {
 			
 			//arbolBalanceado.put(id, infraccion);
 			arregloDinamico.agregar(infraccion);
-			
+			numCargados++;
 			
 			linea = br.readLine();
 
@@ -350,9 +366,11 @@ public class Controller {
 		// Debido a que mi computador no cuenta con la memoria necesaria para hacer los procesos con todos los datos, le puse este lÃ­mite
 		// Esto es con el fin de poder probar el programa y poder ver si estÃ¡ funcionando. 
 		//arregloDinamico.cambiarTamano(200);
-		System.out.println("la cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
+		System.out.println("El total de infracciones del mes fue: "+numCargados);
+		System.out.println("La cantidad de elementos que se agregaron al arreglo hasta el momento es de " + arregloDinamico.darTamano());
 		
 		br.close();
+		return numCargados;
 	}
 	
 	/**
@@ -361,7 +379,7 @@ public class Controller {
 	  * @param int N: Nï¿½mero de franjas horarias que tienen mï¿½s infracciones
 	  * @return Cola con objetos InfraccionesFranjaHoraria
 	  */
-	public IQueue rankingNFranjas(int N)
+	/*public IQueue rankingNFranjas(int N)
 	{
 		// TODO completar
 		MaxColaPrioridad maxHeap = new MaxColaPrioridad<InfraccionesFranjaHoraria>();
@@ -386,7 +404,7 @@ public class Controller {
 			System.out.println(actual.toString());
 		}
 		return (IQueue) resp;
-	}
+	}*/
 	
 	/**
 	  * Requerimiento 2A: Consultar  las  infracciones  por
@@ -395,11 +413,11 @@ public class Controller {
 	  *			double yCoord : Coordenada Y de la localizacion de la infracciï¿½n
 	  * @return Objeto InfraccionesLocalizacion
 	  */
-	public InfraccionesLocalizacion consultarPorLocalizacionHash(double xCoord, double yCoord)
+	/*public InfraccionesLocalizacion consultarPorLocalizacionHash(double xCoord, double yCoord)
 	{
 		// TODO completar
 		return null;		
-	}
+	}*/
 	
 	/**
 	  * Requerimiento 3A: Buscar las infracciones por rango de fechas
@@ -407,11 +425,11 @@ public class Controller {
 	  * 		LocalDate fechaFinal: Fecha final del rango de bï¿½squeda
 	  * @return Cola con objetos InfraccionesFecha
 	  */
-	public IQueue<InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDate fechaInicial, LocalDate fechaFinal)
+	/*public IQueue<InfraccionesFecha> consultarInfraccionesPorRangoFechas(LocalDate fechaInicial, LocalDate fechaFinal)
 	{
 		// TODO completar
 		return null;		
-	}
+	}*/
 	
 	
 	

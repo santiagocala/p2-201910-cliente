@@ -61,38 +61,33 @@ public class MovingViolationsManager {
 		// TODO completar
 		Heap<InfraccionesFranjaHoraria> maxHeap = new Heap<InfraccionesFranjaHoraria>(24);
 		Queue resp = new Queue();
-		InfraccionesFranjaHoraria[] listaHoras= new InfraccionesFranjaHoraria[24];
+		Queue[] listaHoras= new Queue[24];
+		Queue cola = new Queue();
 		for(int i=0; i <arregloDinamico.darTamano();i++)
 		{
-			double porcentajeAccidentes=0;
-			double porcentajeNoAccidentes=0;
-			double valorTotal=0;
-			int totalInfracciones=arregloDinamico.darTamano();
 			VOMovingViolations actual= arregloDinamico.darElemento(i);
-			if(actual.getAccidentIndicator().equals("Yes"))
-			{
-				porcentajeAccidentes++;
-			}
+	
 			//Revisar lo de la hora y el 24
 			LocalDateTime fecha=actual.getTicketIssueDate();
 			int hora=fecha.getHour();
-			Queue cola = new Queue();
-			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(fecha, fecha, cola);
+			
+			listaHoras[hora]=listaHoras[hora]==null?cola:listaHoras[hora];
+			
 			/*VioHour.setPorcentajeAccidentes(porcentajeAccidentes);
 			VioHour.setPorcentajeNoAccidentes(porcentajeNoAccidentes);
 			VioHour.setTotalInfracciones(totalInfracciones);
 			VioHour.setValorTotal(valorTotal);*/
-			listaHoras[hora]=VioHour;
-			listaHoras[hora].agregarALista(actual);
+			listaHoras[hora].enqueue(actual);
+			
 		}
 		for(int j=0; j<listaHoras.length;j++)
 		{
-			maxHeap.agregar(listaHoras[j]);
+			InfraccionesFranjaHoraria VioHour = new InfraccionesFranjaHoraria(((VOMovingViolations) listaHoras[j].peek()).getTicketIssueDate(), ((VOMovingViolations) listaHoras[j].peek()).getTicketIssueDate(), listaHoras[j]);
+			maxHeap.agregar(VioHour);
 
 		}
 		for(int i=0; i<N;i++)
 		{
-			//Cambiar maxHeap porque delMax no funciona
 			InfraccionesFranjaHoraria actual= (InfraccionesFranjaHoraria) maxHeap.delMax();
 			resp.enqueue(actual);
 			//Se imprime de una vez por eficiencia
